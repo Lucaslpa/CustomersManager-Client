@@ -6,11 +6,9 @@ body {
   padding: 0;
   margin: 0;
   font-size: 62.5%;
+
 }
 
-body * {
-    font-size: 1.5rem !important;
-}
 
 h1,
 h2,

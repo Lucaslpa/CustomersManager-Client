@@ -1,11 +1,13 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { ReactNode } from 'react'
+import { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from '../styles/globals'
+import { Theme } from '../styles/theme'
 
 function MyApp({ Component, pageProps }: AppProps): ReactNode {
   return (
-    <>
+    <ThemeProvider theme={Theme}>
       <Head>
         <link
           rel="stylesheet"
@@ -17,8 +19,9 @@ function MyApp({ Component, pageProps }: AppProps): ReactNode {
         />
       </Head>
       <GlobalStyle />
+
       <Component {...pageProps} />
-    </>
+    </ThemeProvider>
   )
 }
 export default MyApp

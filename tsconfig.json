@@ -12,18 +12,14 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
-    "plugins": [
-      {
-        "name": "typescript-styled-plugin"
-      }
-    ]
+    "jsx": "preserve"
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/pages/_document.jsx"
+    "src/pages/_document.jsx",
+    "src/styles/globals.ts"
   ],
   "exclude": ["node_modules"]
 }
