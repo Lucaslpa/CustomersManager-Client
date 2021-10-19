@@ -28,7 +28,7 @@ export const Button = styled.button<buttonProps>`
     font-size: ${theme.fonts.medium};
     width: 100%;
     background-color: ${theme.colors.primary};
-    padding: ${theme.spaces.medium} ${theme.spaces.small};
+    padding: ${theme.spaces.big} ${theme.spaces.small};
     ${width[size]()}
     &:hover {
       background-color: ${theme.colors.primaryDark};
