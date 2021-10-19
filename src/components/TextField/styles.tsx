@@ -20,6 +20,7 @@ type props = {
 export const Wrapper = styled.div<props>`
   ${({ theme, size, error }) => css`
     display: flex;
+    width: 100%;
     flex-direction: column;
     padding: ${theme.spaces.medium};
     ${width[size]()}
