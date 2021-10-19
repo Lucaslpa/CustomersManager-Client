@@ -68,7 +68,7 @@ export const buttonWrapper = styled.div`
     display: flex;
     width: 100%;
     flex-direction: row-reverse;
-    padding: ${theme.spaces.medium} !important;
+    padding: ${theme.spaces.big} !important;
     ${media.lessThan('small')`
       justify-content: center;
     `}
