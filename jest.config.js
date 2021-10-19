@@ -7,8 +7,8 @@ module.exports = {
       tsconfig: './tsconfig.test.json',
     },
   },
+  setupFilesAfterEnv: ['<rootDir>/jest-setup.ts'],
   transform: {
-    ".+\\.(sass|scss)$": "jest-css-modules-transform"
+    '.+\\.(sass|scss)$': 'jest-css-modules-transform',
   },
- 
-};
+}

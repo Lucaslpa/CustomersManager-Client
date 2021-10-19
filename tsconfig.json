@@ -15,11 +15,12 @@
     "jsx": "preserve"
   },
   "include": [
+    "jest-setup.ts",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "src/pages/_document.jsx",
-    "src/styles/globals.ts"
+    "src/styles/globals.js"
   ],
   "exclude": ["node_modules"]
 }

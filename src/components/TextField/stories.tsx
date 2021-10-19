@@ -11,4 +11,8 @@ const Template: Story<props> = (args) => <TextField {...args} />
 export const Default = Template.bind({})
 Default.args = {
   placeholder: 'Senha',
+  size: 'small',
+  type: 'password',
+  label: true,
+  error: false,
 }
