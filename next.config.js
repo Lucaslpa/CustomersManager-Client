@@ -2,6 +2,6 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['png.pngitem.com'],
+    domains: ['cdn-icons-png.flaticon.com'],
   },
 }
