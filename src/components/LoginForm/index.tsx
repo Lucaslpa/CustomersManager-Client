@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import * as S from './styles'
 import { TextField } from '../TextField'
 import { Button } from '../Button'
@@ -5,9 +6,9 @@ import { Button } from '../Button'
 export const LoginForm = () => (
   <S.Wrapper aria-label="Form">
     <TextField
-      placeholder="Email"
+      placeholder="Usuário"
       size="medium"
-      type="email"
+      type="text"
       onChange={() => null}
     />
     <TextField
@@ -17,6 +18,8 @@ export const LoginForm = () => (
       onChange={() => null}
     />
 
-    <Button text="Entrar" size="big" />
+    <Link href="/clientes" passHref>
+      <Button text="Entrar" size="big" />
+    </Link>
   </S.Wrapper>
 )
