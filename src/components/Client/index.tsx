@@ -12,7 +12,7 @@ export const ClientWeb = () => (
     </td>
 
     <td>
-      <span>algumacoisaemail@gmail.com</span>
+      <span>algumacoisaemail@</span>
     </td>
     <td style={{ textAlign: 'center' }}>
       <Button text="Deletar" label="Deletar" />
@@ -26,7 +26,7 @@ export const ClientMobile = () => (
     <h3>Name</h3>
     <span>algumacoisaemail@gmail.com</span>
     <div>
-      <Button text="Deletar" label="Deletar"/>
+      <Button text="Deletar" label="Deletar" />
       <Button text="Editar" label="Editar" />
     </div>
   </S.WrapperMobile>
