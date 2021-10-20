@@ -27,6 +27,11 @@ export const WrapperWeb = styled.table`
           display: none;
   
     `}
+
+  tbody {
+    height: 35rem;
+    overflow-y: scroll;
+  }
 `
 
 export const Thead = styled.thead`

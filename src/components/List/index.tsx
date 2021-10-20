@@ -2,7 +2,7 @@ import * as S from './style'
 import { ClientMobile, ClientWeb } from '../Client'
 
 export const ListWeb = () => (
-  <S.WrapperWeb data-testid='web'>
+  <S.WrapperWeb data-testid="web">
     <S.Thead>
       <tr>
         <td style={{ textAlign: 'center' }}>
@@ -22,12 +22,27 @@ export const ListWeb = () => (
     <tbody>
       <ClientWeb />
       <ClientWeb />
+      <ClientWeb />
+      <ClientWeb />
+      <ClientWeb />
+      <ClientWeb />
+      <ClientWeb />
+      <ClientWeb />
+      <ClientWeb />
     </tbody>
   </S.WrapperWeb>
 )
 
 export const ListMobile = () => (
-  <S.WrapperMobile data-testid='mobile'>
+  <S.WrapperMobile data-testid="mobile">
+    <ClientMobile />
+    <ClientMobile />
+    <ClientMobile />
+    <ClientMobile />
+    <ClientMobile />
+    <ClientMobile />
+    <ClientMobile />
+    <ClientMobile />
     <ClientMobile />
     <ClientMobile />
   </S.WrapperMobile>

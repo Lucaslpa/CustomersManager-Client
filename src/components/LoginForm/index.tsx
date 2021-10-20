@@ -18,8 +18,10 @@ export const LoginForm = () => (
       onChange={() => null}
     />
 
-    <Link href="/clientes" passHref>
-      <Button text="Entrar" size="big" />
+    <Link href="/clientes">
+      <>
+        <Button text="Entrar" size="big" />
+      </>
     </Link>
   </S.Wrapper>
 )

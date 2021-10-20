@@ -17,7 +17,7 @@ export const Button = ({
   size = 'small',
   onClick,
 }: props) => (
-  <S.Button onClick={onClick} arial-label={label} type="button" size={size}>
+  <S.Button onClick={onClick} aria-label={label} type="button" size={size}>
     {!text && !Icon ? 'Button' : null}
     {Icon && !text ? Icon : null}
     {text && !Icon ? text : null}

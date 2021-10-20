@@ -56,7 +56,7 @@ describe('Button', () => {
       <Button text="Login" onClick={() => funcMock()} label="icon" />
     )
 
-    const button = screen.getByRole('button', { name: /Login/gi })
+    const button = screen.getByLabelText('icon')
     button.click()
     expect(button).toMatchSnapshot()
     expect(funcMock).toBeCalledTimes(1)

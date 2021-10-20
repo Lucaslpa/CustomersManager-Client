@@ -14,8 +14,10 @@ export const ClienteForm = () => {
       <LogOut />
       <S.Wrapper>
         <div>
-          <Link passHref href="/clientes">
-            <Button Icon={<Back width={20} />} />
+          <Link href="/clientes">
+            <>
+              <Button Icon={<Back width={20} />} />
+            </>
           </Link>
           <h1>
             {id ? 'Atualizar dados do cliente' : 'Cadastrar novo cliente'}
