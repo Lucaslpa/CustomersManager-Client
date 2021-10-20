@@ -39,6 +39,7 @@
     "@storybook/manager-webpack5": "^6.4.0-alpha.29",
     "@storybook/preset-scss": "^1.0.3",
     "@storybook/react": "^6.3.7",
+    "@styled-icons/entypo": "^10.34.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@types/react": "17.0.17",

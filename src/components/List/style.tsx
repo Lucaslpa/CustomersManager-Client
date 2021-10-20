@@ -19,7 +19,7 @@ export const WrapperWeb = styled.table`
   display: flex;
   flex-direction: column;
   width: 100%;
-  border: solid 1px grey;
+  border: solid 0.5px #e6e6e63b;
   max-width: 80rem;
   margin: 0 auto;
   ${media.lessThan('medium')`
@@ -40,7 +40,7 @@ export const Thead = styled.thead`
       align-items: center;
       width: 100%;
       padding: ${theme.spaces.medium};
-      border-bottom: solid 1px #e6e6e6;
+      border-bottom: solid 0.5px #e6e6e63b;
       color: ${theme.colors.primary};
       td {
         width: 100%;

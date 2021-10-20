@@ -10,7 +10,7 @@ export const WrapperWeb = styled.tr`
     align-items: center;
     width: 100%;
     padding: ${theme.spaces.medium};
-    border-bottom: solid 1px #e6e6e6;
+    border-bottom: solid 0.5px #e6e6e63b;
 
     td {
       width: 100%;
@@ -28,7 +28,8 @@ export const WrapperMobile = styled.div`
   align-items: center;
   justify-content: space-around;
   height: 13rem;
-  border-bottom: solid 1px #e6e6e6;
+  border: solid 0.5px #e6e6e63b;
+
   button {
     margin: 0 2rem;
   }

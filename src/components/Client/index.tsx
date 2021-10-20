@@ -17,7 +17,7 @@ export const ClientWeb = () => (
     </td>
     <td style={{ textAlign: 'center' }}>
       <Button text="Deletar" label="Deletar" />
-      <Link passHref href="/cliente/2">
+      <Link passHref href="/cliente?id=1">
         <Button text="Editar" label="Editar" />
       </Link>
     </td>
@@ -30,7 +30,9 @@ export const ClientMobile = () => (
     <span>algumacoisaemail@gmail.com</span>
     <div>
       <Button text="Deletar" label="Deletar" />
-      <Button text="Editar" label="Editar" />
+      <Link passHref href="/cliente?id=1">
+        <Button text="Editar" label="Editar" />
+      </Link>
     </div>
   </S.WrapperMobile>
 )
