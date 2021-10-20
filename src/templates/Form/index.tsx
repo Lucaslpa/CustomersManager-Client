@@ -4,12 +4,14 @@ import Link from 'next/link'
 import { ClientForm as Component } from '../../components/ClientForm'
 import * as S from './style'
 import { Button } from '../../components/Button'
+import { LogOut } from '../../components/LogOut'
 
 export const ClienteForm = () => {
   const router = useRouter()
   const { id } = router.query
   return (
     <S.Container>
+      <LogOut />
       <S.Wrapper>
         <div>
           <Link passHref href="/clientes">

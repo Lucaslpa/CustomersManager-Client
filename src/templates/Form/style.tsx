@@ -22,6 +22,7 @@ export const Wrapper = styled.div`
         color: black;
         font-size: ${theme.fonts.xbig};
         margin: ${theme.spaces.big} 0;
+        text-align: center;
       }
     `}
   }

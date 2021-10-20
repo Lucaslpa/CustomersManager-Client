@@ -1,12 +1,20 @@
 import styled, { css } from 'styled-components'
 
+export const Container = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 export const Wrapper = styled.div`
   display: flex;
-  height: 100vh;
   width: 100%;
+  height: 100%;
+  max-width: 80rem;
   flex-direction: column;
-  padding: 5rem 0;
-
+  padding-top: 5rem;
   align-items: center;
   ${({ theme }) => css`
     & > h1 {
@@ -15,8 +23,9 @@ export const Wrapper = styled.div`
     }
     & > div {
       width: 100%;
-      max-width: 80rem;
-      padding:  ${theme.spaces.big};
-
+      padding: 1rem;
+      display: flex;
+      justify-content: flex-end;
+    }
   `}
 `
