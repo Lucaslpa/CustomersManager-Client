@@ -12,6 +12,9 @@ export const Wrapper = styled.div<props>`
     width: 100%;
     font-size: ${theme.fonts.big};
     transition: 0.3s;
+    position: fixed;
+    top: 0;
+    left: 0;
     ${hidden
       ? css`
           pointer-events: none;

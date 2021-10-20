@@ -12,5 +12,4 @@ export const Default = Template.bind({})
 Default.args = {
   status: 'warning',
   text: 'Alguma coisa errada',
-  show: false,
 }

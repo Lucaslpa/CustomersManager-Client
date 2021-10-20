@@ -3,46 +3,14 @@ import media from 'styled-media-query'
 
 export type props = {
   status: 'success' | 'warning'
-  show: boolean
 }
 
-const enter = css`
-  animation-name: enter;
-  animation-duration: 0.3s;
-
-  animation-fill-mode: forwards;
-  @keyframes enter {
-    from {
-      transform: translateX(100%);
-    }
-
-    to {
-      transform: translateX(0%);
-    }
-  }
-`
-
-const out = css`
-  animation-name: out;
-  animation-duration: 0.3s;
-  animation-fill-mode: forwards;
-
-  @keyframes out {
-    from {
-      transform: translateX(0);
-    }
-
-    to {
-      transform: translateX(100%);
-    }
-  }
-`
-
 export const Wrapper = styled.div<props>`
-  ${({ theme, status, show }) => css`
-    transform: translateX(100%);
+  ${({ theme, status }) => css`
+    display: flex;
+    justify-content: center;
 
-    ${show ? enter : out}
+    transition: 0.4s;
     position: absolute;
     color: white;
     font-size: ${theme.fonts.big};
@@ -53,10 +21,8 @@ export const Wrapper = styled.div<props>`
     top: 0;
     right: 0;
     width: 100%;
-    max-width: 30rem;
     ${media.greaterThan('medium')`
         padding: ${theme.spaces.big};
-       max-width: 50rem;
        font-size: ${theme.fonts.xbig}
       `}
   `}

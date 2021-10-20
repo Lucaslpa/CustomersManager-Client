@@ -3,15 +3,13 @@ import * as S from './style'
 import { Button } from '../Button'
 
 export const ClientWeb = () => (
-  <S.WrapperWeb aria-label="client">
+  <S.WrapperWeb aria-label="cliente">
     <td style={{ textAlign: 'center' }}>
       <input type="checkbox" />
     </td>
-
     <td>
       <h3>name</h3>
     </td>
-
     <td>
       <span>algumacoisaemail@</span>
     </td>

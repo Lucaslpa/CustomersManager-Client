@@ -6,7 +6,6 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 5rem 0;
 
   & > h1 {
     ${({ theme }) => css`
