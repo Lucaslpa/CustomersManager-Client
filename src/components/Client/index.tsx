@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import * as S from './style'
 import { Button } from '../Button'
 
@@ -16,7 +17,9 @@ export const ClientWeb = () => (
     </td>
     <td style={{ textAlign: 'center' }}>
       <Button text="Deletar" label="Deletar" />
-      <Button text="Editar" label="Editar" />
+      <Link passHref href="/cliente/2">
+        <Button text="Editar" label="Editar" />
+      </Link>
     </td>
   </S.WrapperWeb>
 )

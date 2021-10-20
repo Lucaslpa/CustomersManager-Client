@@ -1,7 +1,10 @@
 import styled, { css } from 'styled-components'
 import media from 'styled-media-query'
 
-export const Wrapper = styled.div``
+export const Wrapper = styled.div`
+  width: 100%;
+  height: auto;
+`
 
 export const WrapperMobile = styled.section`
   width: 100%;
@@ -13,7 +16,10 @@ export const WrapperMobile = styled.section`
 `
 
 export const WrapperWeb = styled.table`
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  border: solid 1px grey;
   max-width: 80rem;
   margin: 0 auto;
   ${media.lessThan('medium')`
@@ -24,8 +30,6 @@ export const WrapperWeb = styled.table`
 `
 
 export const Thead = styled.thead`
-  border: solid 1px green;
-  width: 100%;
   font-size: 1rem;
 
   tr {
