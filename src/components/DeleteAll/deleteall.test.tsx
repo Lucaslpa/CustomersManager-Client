@@ -5,7 +5,7 @@ import { renderConfig } from '../../utils/renderConfig'
 describe('DeleteAll', () => {
   it('should match to snapshot', () => {
     renderConfig(<DeleteAll selected={2} />)
-    const deleteAll = screen.getByLabelText(/Deletar todos/gi).parentElement
+    const deleteAll = screen.getByTestId(/deleteAll/gi)
     expect(deleteAll).toMatchSnapshot()
   })
 })

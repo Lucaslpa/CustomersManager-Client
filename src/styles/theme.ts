@@ -1,6 +1,7 @@
 export const Theme = {
   radius: '4px',
   fonts: {
+    xbig: '2.4rem',
     big: '1.8rem',
     medium: '1.5rem',
     small: '1.3rem',
@@ -15,6 +16,7 @@ export const Theme = {
     primaryDark: '#0938ba',
     secondary: '#95aded',
     warning: '#fa1919',
+    success: '#02b514',
   },
 }
 export type theme = typeof Theme

@@ -1,26 +1,26 @@
 import styled, { css } from 'styled-components'
 import media from 'styled-media-query'
 
-export const Wrapper = styled.div`
-  ${media.greaterThan('medium')`
-      section {
-          display: none;
-      }
-    `}
+export const Wrapper = styled.div``
 
-  ${media.lessThan('medium')`
-      table {
+export const WrapperMobile = styled.section`
+  width: 100%;
+  ${media.greaterThan('medium')`
+      
           display: none;
-      }
+  
     `}
 `
-
-export const WrapperMobile = styled.section``
 
 export const WrapperWeb = styled.table`
   width: 100%;
   max-width: 80rem;
   margin: 0 auto;
+  ${media.lessThan('medium')`
+      
+          display: none;
+  
+    `}
 `
 
 export const Thead = styled.thead`

@@ -8,7 +8,7 @@ export type props = {
 }
 
 export const DeleteAll = ({ selected = 0, hidden = false }: props) => (
-  <S.Wrapper hidden={hidden}>
+  <S.Wrapper hidden={hidden} data-testid="deleteAll">
     <strong>{selected} Selecionados</strong>
 
     <Button Icon={<TrashFill width={25} />} label="Deletar todos" />

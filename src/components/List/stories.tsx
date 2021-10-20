@@ -3,7 +3,7 @@ import { List, ListMobile, ListWeb } from './index'
 
 export default {
   title: 'List',
-  component: ListMobile,
+  component: List,
 } as Meta
 
 export const Default: Story = (args) => <List {...args} />
