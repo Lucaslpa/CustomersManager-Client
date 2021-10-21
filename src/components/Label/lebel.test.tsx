@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import { screen } from '@testing-library/dom'
 import { LabelStatus } from '.'
 import { renderConfig } from '../../utils/renderConfig'

@@ -1,9 +1,9 @@
-import { Login } from '../templates/Login'
+import { Clientes as ClientesComponent } from '../templates/Clientes'
 
-export default function Index() {
+export default function Clientes() {
   return (
     <div>
-      <Login />
+      <ClientesComponent />
     </div>
   )
 }

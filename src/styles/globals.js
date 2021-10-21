@@ -10,7 +10,8 @@ body {
 }
 
  * {
-   box-sizing: border-box
+   box-sizing: border-box;
+   font-family: 'Roboto'
  }
 
 h1,
