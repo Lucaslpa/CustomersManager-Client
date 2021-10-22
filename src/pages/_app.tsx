@@ -4,6 +4,7 @@ import { ReactNode } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from '../styles/globals'
 import { Theme } from '../styles/theme'
+import { SelectContextProvider } from '../contexts/select'
 
 function MyApp({ Component, pageProps }: AppProps): ReactNode {
   return (
@@ -19,8 +20,9 @@ function MyApp({ Component, pageProps }: AppProps): ReactNode {
         />
       </Head>
       <GlobalStyle />
-
-      <Component {...pageProps} />
+      <SelectContextProvider>
+        <Component {...pageProps} />
+      </SelectContextProvider>
     </ThemeProvider>
   )
 }

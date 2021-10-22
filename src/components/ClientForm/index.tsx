@@ -1,8 +1,14 @@
+import router from 'next/router'
 import * as S from './styles'
 import { TextField } from '../TextField'
 import { Button } from '../Button'
+import { Client } from '../../types/cliente'
 
-export const ClientForm = () => (
+type props = {
+  client?: Client
+}
+
+export const ClientForm = ({ client }: props) => (
   <S.Wrapper aria-label="Form">
     <S.FieldSet>
       <legend>Nome Completo</legend>
@@ -11,12 +17,14 @@ export const ClientForm = () => (
         size="big"
         type="text"
         onChange={() => null}
+        defaultValue={client ? client.name : ''}
       />
       <TextField
         placeholder="Sobrenome"
         size="big"
         type="text"
         onChange={() => null}
+        defaultValue={client ? client.surname : ''}
       />
     </S.FieldSet>
 
@@ -27,6 +35,7 @@ export const ClientForm = () => (
         size="big"
         type="email"
         onChange={() => null}
+        defaultValue={client ? client.email : ''}
       />
       <div id="flex">
         <TextField
@@ -34,12 +43,14 @@ export const ClientForm = () => (
           size="big"
           type="tel"
           onChange={() => null}
+          defaultValue={client ? client.phone : ''}
         />
         <TextField
           placeholder="Endereço"
           size="big"
           type="text"
           onChange={() => null}
+          defaultValue={client ? client.address : ''}
         />
       </div>
     </S.FieldSet>
@@ -51,17 +62,19 @@ export const ClientForm = () => (
         size="big"
         type="text"
         onChange={() => null}
+        defaultValue={client ? client.cpf : ''}
       />
       <TextField
         placeholder="Data de Nascimento"
         size="big"
         type="text"
         onChange={() => null}
+        defaultValue={client ? client.birth : ''}
       />
     </S.FieldSet>
 
     <S.buttonWrapper>
-      <Button text="Salvar" size="big" />
+      <Button text={client ? 'Salvar' : 'Cadastrar'} size="big" />
     </S.buttonWrapper>
   </S.Wrapper>
 )

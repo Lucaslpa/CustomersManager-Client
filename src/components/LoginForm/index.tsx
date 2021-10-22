@@ -57,6 +57,7 @@ export const LoginForm = ({ csrfToken }: props) => {
     </S.Wrapper>
   )
 }
+
 export const getServerSideProps: GetServerSideProps = async (context: any) => ({
   props: {
     csrfToken: await getCsrfToken(context),

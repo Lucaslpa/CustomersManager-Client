@@ -5,12 +5,12 @@ import { Button } from '../../components/Button'
 import * as S from './style'
 import { LogOut } from '../../components/LogOut'
 import { SelectPage } from '../../components/SelectPage'
-import { DeleteAll } from '../../components/DeleteAll'
+import { clientes } from '../../api/ClienteMock'
 
 export const Clientes = () => (
   <S.Container>
     <LogOut />
-    <DeleteAll hidden={false} selected={1} />
+
     <S.Wrapper>
       <h1>Lista de clientes</h1>
       <div>
@@ -20,7 +20,7 @@ export const Clientes = () => (
           </>
         </Link>
       </div>
-      <List />
+      <List clients={clientes} />
       <SelectPage />
     </S.Wrapper>
   </S.Container>
