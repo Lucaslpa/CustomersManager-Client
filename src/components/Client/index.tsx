@@ -10,7 +10,7 @@ type props = {
 }
 
 export const ClientWeb = ({ client }: props) => {
-  const { Selected, setSelected, checkAll } = useSelectContext()
+  const { Selected, setSelected } = useSelectContext()
   const [isSelected, setIsSelected] = useState(false)
 
   function handleCheckUncheck(cpf: string) {

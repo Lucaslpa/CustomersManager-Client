@@ -9,11 +9,9 @@ import {
 type context = {
   Selected: string[]
   setSelected?: Dispatch<SetStateAction<string[]>>
-  checkAll: boolean
-  setCheckAll?: Dispatch<SetStateAction<boolean>>
 }
 
-const Context = createContext<context>({ Selected: [], checkAll: false })
+const Context = createContext<context>({ Selected: [] })
 
 export const SelectContextProvider = ({
   children,
@@ -21,10 +19,9 @@ export const SelectContextProvider = ({
   children: React.ReactElement[] | React.ReactElement
 }) => {
   const [Selected, setSelected] = useState<string[]>([])
-  const [checkAll, setCheckAll] = useState<boolean>(false)
 
   return (
-    <Context.Provider value={{ Selected, setSelected, checkAll, setCheckAll }}>
+    <Context.Provider value={{ Selected, setSelected }}>
       {children}
     </Context.Provider>
   )
