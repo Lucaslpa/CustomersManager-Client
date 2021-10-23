@@ -1,8 +1,30 @@
-import { signIn } from 'next-auth/react'
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import { LoginAdministrator } from '../../../api/admnistrator'
 
 export default NextAuth({
+  session: {
+    jwt: true,
+    maxAge: 1 * 24 * 60 * 60,
+    updateAge: 1 * 60 * 60,
+  },
+  jwt: {
+    maxAge: 1 * 24 * 60 * 60,
+    secret: process.env.SECRET_KEY,
+  },
+
+  callbacks: {
+    jwt: ({ token, user }) => {
+      if (user) {
+        token.accessToken = user.token
+      }
+      return token
+    },
+    session: ({ session, token }) => {
+      session.accessToken = token.accessToken
+      return session
+    },
+  },
   providers: [
     CredentialsProvider({
       id: 'login',
@@ -10,21 +32,19 @@ export default NextAuth({
 
       credentials: {},
 
-      authorize: (credentials) => {
+      authorize: async (credentials) => {
         const userLogin = JSON.parse(JSON.stringify(credentials))
-        const user = { id: 1, username: 'asdasdas', password: '1' }
+        const response = await LoginAdministrator({
+          password: userLogin.password,
+          username: userLogin.username,
+        })
+        if (response.data.error) {
+          throw new Error(response.data.error)
+        } else {
+          const { token } = response.data
 
-        if (userLogin.username !== user.username) {
-          return null
+          return { token }
         }
-        if (userLogin.password !== user.password) {
-          return null
-        }
-
-        if (!user) {
-          throw new Error('error message')
-        }
-        return user
       },
     }),
   ],
