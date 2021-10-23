@@ -4,6 +4,7 @@ import { ClientMobile, ClientWeb } from '../Client'
 import { Client } from '../../types/cliente'
 import { useSelectContext } from '../../contexts/select'
 import { DeleteAll } from '../DeleteAll'
+import { ClientGetMany } from '../../api/clients'
 
 type props = {
   clients: Client[]

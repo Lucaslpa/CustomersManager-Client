@@ -14,10 +14,10 @@ export const ClientWeb = ({ client }: props) => {
   const [isSelected, setIsSelected] = useState(false)
 
   function handleCheckUncheck(cpf: string) {
-    const verifyIfAlreadyExist = Selected.filter((CPF: string) => CPF === cpf)
+    const verifyIfAlreadyExist = Selected.find((CPF) => CPF === cpf)
     const AlreadyExist = verifyIfAlreadyExist
 
-    if (AlreadyExist.length) {
+    if (AlreadyExist) {
       const selectedContextWithoutElement = Selected.filter(
         (CPF: string) => CPF !== cpf
       )

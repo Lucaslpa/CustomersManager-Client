@@ -1,18 +1,18 @@
 import { Api } from './api'
-import { Client } from '../types/cliente'
+import * as ApiTypes from '../types/cliente'
+import { httpResponse } from '../types/httpResponse'
 
 export const ClientDelete = async (
   id: string,
   token: string
-): Promise<string> => {
-  const response: { status: number; data: { success: string } } =
-    await Api.delete(`/clients/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-
-  return response.data.success
+): Promise<httpResponse> => {
+  const response = await Api.delete<httpResponse>(`/clients/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  console.log('response', response)
+  return response.data
 }
 
 export const ClientUpdate = async (
@@ -31,28 +31,11 @@ export const ClientUpdate = async (
   return response.data.success
 }
 
-type newClient = {
-  address: string
-  birthday: string
-  cpf: string
-  email: string
-  name: string
-  phone: string
-  surname: string
-  _id: string
-  __v: number
-}
-
 export const ClientCreate = async (
-  client: Client,
+  client: ApiTypes.Client,
   token: string
-): Promise<newClient> => {
-  const response: {
-    status: number
-    data: {
-      newClient: newClient
-    }
-  } = await Api.post(`/clients`, client, {
+): Promise<ApiTypes.newCreatedClient> => {
+  const response = await Api.post(`/clients`, client, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -61,28 +44,11 @@ export const ClientCreate = async (
   return response.data.newClient
 }
 
-type returnClient = {
-  _id: string
-  address: string
-  birthday: string
-  cpf: string
-  email: string
-  name: string
-  phone: string
-  surname: string
-  __v: number
-}
-
 export const ClientGet = async (
   id: string,
   token: string
-): Promise<newClient> => {
-  const response: {
-    status: number
-    data: {
-      client: returnClient
-    }
-  } = await Api.get(`/clients/${id}`, {
+): Promise<ApiTypes.GetClient> => {
+  const response = await Api.get(`/clients/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -94,18 +60,14 @@ export const ClientGet = async (
 export const ClientGetMany = async (
   page: number,
   token: string
-): Promise<returnClient[]> => {
-  const response: {
-    status: number
-    data: {
-      clients: returnClient[]
-    }
-  } = await Api.get(`/clients?page=${page}`, {
+): Promise<ApiTypes.ClientGetMany> => {
+  const response = await Api.get<any>(`/clients?page=${page}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   })
-
+    .then((e) => e.data)
+    .catch((error) => error.response)
   return response.data.clients
 }
 

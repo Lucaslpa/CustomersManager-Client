@@ -6,6 +6,7 @@ import { getSession, SessionProvider } from 'next-auth/react'
 import { GlobalStyle } from '../styles/globals'
 import { Theme } from '../styles/theme'
 import { SelectContextProvider } from '../contexts/select'
+import { ClientsContextProvider } from '../contexts/Clients'
 
 function MyApp({
   Component,
@@ -25,9 +26,11 @@ function MyApp({
       </Head>
       <GlobalStyle />
       <SessionProvider session={session}>
-        <SelectContextProvider>
-          <Component {...pageProps} />
-        </SelectContextProvider>
+        <ClientsContextProvider>
+          <SelectContextProvider>
+            <Component {...pageProps} />
+          </SelectContextProvider>
+        </ClientsContextProvider>
       </SessionProvider>
     </ThemeProvider>
   )
@@ -36,15 +39,6 @@ export default MyApp
 
 export async function getServerSideProps(ctx: any) {
   const session = await getSession(ctx)
-  console.log(session)
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
 
   return {
     props: {
