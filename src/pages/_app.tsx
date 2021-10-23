@@ -35,9 +35,20 @@ function MyApp({
 export default MyApp
 
 export async function getServerSideProps(ctx: any) {
+  const session = await getSession(ctx)
+  console.log(session)
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
+
   return {
     props: {
-      session: await getSession(ctx),
+      session,
     },
   }
 }
