@@ -1,9 +1,5 @@
-import { FormEvent, useState } from 'react'
-import { signIn } from 'next-auth/react'
 import { LoginForm } from '../../components/LoginForm'
 import * as S from './style'
-import { LabelStatus } from '../../components/Label'
-import { useManageLabelErrorLogin } from '../../Hooks/LabelError'
 
 export const Login = () => (
   <S.Wrapper>

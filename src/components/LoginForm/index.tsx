@@ -1,14 +1,13 @@
 import Link from 'next/link'
 import { GetServerSideProps } from 'next'
-import { useState, FormEvent, useEffect } from 'react'
-import { getCsrfToken, signIn, SignInResponse } from 'next-auth/react'
+import { useState, FormEvent,  } from 'react'
+import { getCsrfToken, signIn,  } from 'next-auth/react'
 import Router from 'next/router'
 import * as S from './styles'
 import { TextField } from '../TextField'
 import { Button } from '../Button'
 import { useManageLabelErrorLogin } from '../../Hooks/LabelError'
 import { LabelStatus } from '../Label'
-import { LoginAdministrator } from '../../api/admnistrator'
 
 type props = {
   csrfToken?: string | undefined

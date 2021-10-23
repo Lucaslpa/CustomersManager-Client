@@ -1,6 +1,6 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { LoginAdministrator } from '../../../api/admnistrator'
+import { LoginAdministrator } from '../../../api/administrator'
 
 export default NextAuth({
   session: {
