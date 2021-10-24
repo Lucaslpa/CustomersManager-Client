@@ -58,9 +58,9 @@ export const List = ({ clients }: props) => {
   let hiddenDeleteAll = !Selected[0]
 
   function handleCheckAll(isCheck: boolean) {
-    const cpfs = clients.map((client) => client.cpf)
+    const ids = clients.map((client) => client.id)
     if (isCheck) {
-      setSelected!(cpfs)
+      setSelected!(ids)
       return
     }
     setSelected!([])

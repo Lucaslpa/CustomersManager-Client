@@ -7,12 +7,13 @@ import {
 } from 'react'
 import { Client } from '../../types/cliente'
 
-type state = {
+export type state = {
   ClientsData: Client[]
   hasPrevPage: boolean
   page: number
   pageCount: number
   totalDocs: number
+  hasNextPage: boolean
 }
 
 type context = {
@@ -26,6 +27,7 @@ const defaultState = {
   page: 1,
   pageCount: 1,
   totalDocs: 1,
+  hasNextPage: false,
 } as state
 
 const Context = createContext<context>({

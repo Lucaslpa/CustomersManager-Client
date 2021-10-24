@@ -8,10 +8,13 @@ import { LogOut } from '../../components/LogOut'
 import { SelectPage } from '../../components/SelectPage'
 import { clientes } from '../../api/ClienteMock'
 import { useClientsContext } from '../../contexts/Clients'
+import { ClientDelete } from '../../api/clients'
 
 export const Clientes = () => {
   const { data } = useSession()
   const { state } = useClientsContext()
+
+  useEffect(() => console.log(state), [state])
 
   return (
     <S.Container>
@@ -21,9 +24,7 @@ export const Clientes = () => {
         <h1>Lista de clientes</h1>
         <div>
           <Link href="/cliente">
-            <>
-              <Button text="Adicionar cliente" size="small" />
-            </>
+            <Button text="Adicionar cliente" size="small" />
           </Link>
         </div>
         {state ? <List clients={state.ClientsData} /> : null}
