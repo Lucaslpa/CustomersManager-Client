@@ -1,51 +1,49 @@
 import { TrashFill } from '@styled-icons/bootstrap'
 import { useSession } from 'next-auth/react'
 import * as S from './style'
-import { useSelectContext } from '../../contexts/select'
-import { useClientsContext } from '../../contexts/Clients'
+import { useSelectContext } from '../../contexts/CustomersSelect'
+import { useCustomersContext } from '../../contexts/Customers'
 
 import { Button } from '../Button'
-import { ClientDeleteMany } from '../../api/clients'
+import { CustomerApi } from '../../api/Customer'
 
 export type props = {
   hidden?: boolean
 }
 
 export const DeleteAll = ({ hidden = false }: props) => {
-  const { Selected, setSelected } = useSelectContext()
-  const { state, setClientsContext } = useClientsContext()
+  const { Selected } = useSelectContext()
+  const { CustomersContext, setCustomersContext } = useCustomersContext()
   const { data } = useSession()
+  const customApi = new CustomerApi(data?.accessToken || '')
 
-  function handleDeleteFromState() {
-    const oldData = state.ClientsData
+  function handleDeleteCustomersContext() {
+    const oldData = CustomersContext.Customers
     const newData = oldData.filter((e) => {
       const find = Selected.find((id) => id === e.id)
       if (find) return null
       return find
     })
     if (newData) {
-      setClientsContext!({ ...state, ClientsData: newData! })
+      setCustomersContext!({ ...CustomersContext, Customers: newData! })
     }
   }
 
-  async function handleDeleteAll() {
+  async function handleDeleteManyCustomers() {
     if (data && data.accessToken) {
-      const DeleteAllResponse = await ClientDeleteMany(
-        Selected,
-        data.accessToken
-      )
+      const DeleteAllResponse = await customApi.DeleteMany(Selected)
       if (DeleteAllResponse) {
-        handleDeleteFromState()
+        handleDeleteCustomersContext()
       }
     }
   }
 
   return (
     <S.Wrapper hidden={hidden} data-testid="deleteAll">
-      <strong>{Selected?.length} Selecionados</strong>
+      <strong>{Selected?.length || 0} Selecionados</strong>
 
       <Button
-        onClick={() => handleDeleteAll()}
+        onClick={() => handleDeleteManyCustomers()}
         Icon={<TrashFill width={25} />}
         label="Deletar todos"
       />

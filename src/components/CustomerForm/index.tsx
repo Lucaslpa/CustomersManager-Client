@@ -1,39 +1,40 @@
-import router from 'next/router'
 import { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import * as S from './styles'
 import { TextField } from '../TextField'
 import { Button } from '../Button'
-import { Client, ClientToCreate } from '../../types/cliente'
-import { ClientUpdate, ClientCreate } from '../../api/clients'
+import { Customer, CustomerToCreate } from '../../types/Customer'
+import { CustomerApi } from '../../api/Customer'
 
 type props = {
-  client?: Client
+  customer?: Customer
 }
 
-export const ClientForm = ({ client }: props) => {
+export const CustomerForm = ({ customer }: props) => {
   const [FormData, setFormData] = useState<
-    ClientToCreate | Record<string, unknown>
+    CustomerToCreate | Record<string, unknown>
   >({})
   const { data } = useSession()
-
+  const customerApi = new CustomerApi(data?.accessToken || '')
   async function handleSendForm() {
     if (!data || !data.accessToken || !FormData) return
-    if (client) {
-      await ClientUpdate(client.id, FormData, data.accessToken)
+    if (customer) {
+      await customerApi.UpdateOne(customer.id, FormData)
       return
     }
     if (
-      FormData.address &&
-      FormData.birthday &&
-      FormData.cpf &&
-      FormData.email &&
-      FormData.name &&
-      FormData.phone &&
-      FormData.surname
+      !FormData.address &&
+      !FormData.birthday &&
+      !FormData.cpf &&
+      !FormData.email &&
+      !FormData.name &&
+      !FormData.phone &&
+      !FormData.surname
     ) {
-      await ClientCreate(FormData, data.accessToken)
+      return
     }
+
+    await customerApi.CreateOne(FormData)
   }
   return (
     <S.Wrapper aria-label="Form">
@@ -46,7 +47,7 @@ export const ClientForm = ({ client }: props) => {
           onChange={(textValue) => {
             setFormData({ ...FormData, name: textValue })
           }}
-          defaultValue={client ? client.name : ''}
+          defaultValue={customer ? customer.name : ''}
         />
         <TextField
           placeholder="Sobrenome"
@@ -55,7 +56,7 @@ export const ClientForm = ({ client }: props) => {
           onChange={(textValue) => {
             setFormData({ ...FormData, surname: textValue })
           }}
-          defaultValue={client ? client.surname : ''}
+          defaultValue={customer ? customer.surname : ''}
         />
       </S.FieldSet>
 
@@ -68,7 +69,7 @@ export const ClientForm = ({ client }: props) => {
           onChange={(textValue) => {
             setFormData({ ...FormData, email: textValue })
           }}
-          defaultValue={client ? client.email : ''}
+          defaultValue={customer ? customer.email : ''}
         />
         <div id="flex">
           <TextField
@@ -78,7 +79,7 @@ export const ClientForm = ({ client }: props) => {
             onChange={(textValue) => {
               setFormData({ ...FormData, phone: textValue })
             }}
-            defaultValue={client ? client.phone : ''}
+            defaultValue={customer ? customer.phone : ''}
           />
           <TextField
             placeholder="Endereço"
@@ -87,7 +88,7 @@ export const ClientForm = ({ client }: props) => {
             onChange={(textValue) => {
               setFormData({ ...FormData, address: textValue })
             }}
-            defaultValue={client ? client.address : ''}
+            defaultValue={customer ? customer.address : ''}
           />
         </div>
       </S.FieldSet>
@@ -101,7 +102,7 @@ export const ClientForm = ({ client }: props) => {
           onChange={(textValue) => {
             setFormData({ ...FormData, cpf: textValue })
           }}
-          defaultValue={client ? client.cpf : ''}
+          defaultValue={customer ? customer.cpf : ''}
         />
         <TextField
           placeholder="Data de Nascimento"
@@ -110,13 +111,13 @@ export const ClientForm = ({ client }: props) => {
           onChange={(textValue) => {
             setFormData({ ...FormData, birthday: textValue })
           }}
-          defaultValue={client ? client.birth : ''}
+          defaultValue={customer ? customer.birth : ''}
         />
       </S.FieldSet>
 
       <S.buttonWrapper>
         <Button
-          text={client ? 'Salvar' : 'Cadastrar'}
+          text={customer ? 'Salvar' : 'Cadastrar'}
           onClick={() => {
             handleSendForm()
           }}

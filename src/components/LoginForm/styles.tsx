@@ -6,7 +6,7 @@ export const Wrapper = styled.form`
     flex-direction: column;
     padding: ${theme.spaces.medium};
     width: 100%;
-    max-width: 300px;
+    max-width: 25rem;
     button {
       margin-top: ${theme.spaces.big};
     }

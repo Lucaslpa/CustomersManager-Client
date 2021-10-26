@@ -2,6 +2,14 @@ import { screen, fireEvent } from '@testing-library/react'
 import { SelectPage } from '.'
 import { renderConfig } from '../../utils/renderConfig'
 
+jest.mock('next-auth/react', () => ({
+  useSession: () => ({
+    data: {
+      accessToken: '',
+    },
+  }),
+}))
+
 describe('SelectPage', () => {
   it('should  change actual value', () => {
     renderConfig(<SelectPage />)

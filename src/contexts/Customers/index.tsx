@@ -5,10 +5,10 @@ import {
   Dispatch,
   SetStateAction,
 } from 'react'
-import { Client } from '../../types/cliente'
+import { Customer } from '../../types/Customer'
 
-export type state = {
-  ClientsData: Client[]
+export type CustomersContext = {
+  Customers: Customer[]
   hasPrevPage: boolean
   page: number
   pageCount: number
@@ -17,38 +17,41 @@ export type state = {
 }
 
 type context = {
-  state: state
-  setClientsContext?: Dispatch<SetStateAction<state>>
+  CustomersContext: CustomersContext
+  setCustomersContext?: Dispatch<SetStateAction<CustomersContext>>
 }
 
 const defaultState = {
-  ClientsData: [],
+  Customers: [],
   hasPrevPage: false,
   page: 1,
   pageCount: 1,
   totalDocs: 1,
   hasNextPage: false,
-} as state
+} as CustomersContext
 
 const Context = createContext<context>({
-  state: defaultState,
+  CustomersContext: defaultState,
 })
 
-export const ClientsContextProvider = ({
+export const CustomersContextProvider = ({
   children,
 }: {
   children: React.ReactElement[] | React.ReactElement
 }) => {
-  const [State, setClientsContext] = useState<state>(defaultState)
+  const [CustomersState, setCustomersContext] =
+    useState<CustomersContext>(defaultState)
 
   return (
-    <Context.Provider value={{ state: State, setClientsContext }}>
+    <Context.Provider
+      value={{ CustomersContext: CustomersState, setCustomersContext }}
+    >
       {children}
     </Context.Provider>
   )
 }
 
-export const useClientsContext = () => {
+export const useCustomersContext = () => {
   const ctx = useContext(Context)
   return ctx
 }

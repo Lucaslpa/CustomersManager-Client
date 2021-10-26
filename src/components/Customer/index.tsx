@@ -3,20 +3,21 @@ import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import * as S from './style'
 import { Button } from '../Button'
-import { Client } from '../../types/cliente'
-import { useSelectContext } from '../../contexts/select'
-import { ClientDelete } from '../../api/clients'
-import { useClientsContext } from '../../contexts/Clients'
+import { Customer } from '../../types/Customer'
+import { useSelectContext } from '../../contexts/CustomersSelect'
+import { CustomerApi } from '../../api/Customer'
+import { useCustomersContext } from '../../contexts/Customers'
 
 type props = {
-  client: Client
+  customer: Customer
 }
 
-export const ClientWeb = ({ client }: props) => {
+export const CustomerWeb = ({ customer }: props) => {
   const { Selected, setSelected } = useSelectContext()
   const [isSelected, setIsSelected] = useState(false)
   const { data } = useSession()
-  const { state, setClientsContext } = useClientsContext()
+  const customerApi = new CustomerApi(data?.accessToken || '')
+  const { CustomersContext, setCustomersContext } = useCustomersContext()
 
   function handleCheckUncheck(id: string) {
     const verifyIfAlreadyExist = Selected.find((ID) => ID === id)
@@ -33,7 +34,7 @@ export const ClientWeb = ({ client }: props) => {
   }
 
   function handleCheckIfIsSelected() {
-    const IsSelected = Selected.find((ID) => ID === client.id)
+    const IsSelected = Selected.find((ID) => ID === customer.id)
     if (IsSelected) setIsSelected(true)
     if (!IsSelected) setIsSelected(false)
   }
@@ -42,12 +43,15 @@ export const ClientWeb = ({ client }: props) => {
 
   async function handleDeleteThisClient(id: string) {
     if (data && data.accessToken) {
-      const res = await ClientDelete(id, data.accessToken)
+      const res = await customerApi.DeleteOne(id)
       if (res.data.success) {
-        const newClientsData = state.ClientsData.filter(
-          (cliente) => cliente.id !== id
+        const newCustomers = CustomersContext.Customers.filter(
+          (customerFilter) => customerFilter.id !== id
         )
-        setClientsContext!({ ...state, ClientsData: newClientsData })
+        setCustomersContext!({
+          ...CustomersContext,
+          Customers: newCustomers,
+        })
       }
     }
   }
@@ -57,23 +61,23 @@ export const ClientWeb = ({ client }: props) => {
       <td style={{ textAlign: 'center' }}>
         <input
           type="checkbox"
-          onChange={() => handleCheckUncheck(client.id)}
+          onChange={() => handleCheckUncheck(customer.id)}
           checked={isSelected}
         />
       </td>
       <td>
-        <h3>{client.name}</h3>
+        <h3>{customer.name}</h3>
       </td>
       <td>
-        <span>{client.name}</span>
+        <span>{customer.name}</span>
       </td>
       <td style={{ textAlign: 'center' }}>
         <Button
           text="Deletar"
           label="Deletar"
-          onClick={() => handleDeleteThisClient(client.id)}
+          onClick={() => handleDeleteThisClient(customer.id)}
         />
-        <Link passHref href={`/cliente?id=${client.id}`}>
+        <Link passHref href={`/CustomerForm?id=${customer.id}`}>
           <Button text="Editar" label="Editar" />
         </Link>
       </td>
@@ -81,26 +85,26 @@ export const ClientWeb = ({ client }: props) => {
   )
 }
 
-export const ClientMobile = ({ client }: props) => {
+export const CustomerMobile = ({ customer }: props) => {
   const { data } = useSession()
-
+  const customerApi = new CustomerApi(data?.accessToken || '')
   async function handleDeleteThisClient(id: string) {
     if (data && data.accessToken) {
-      ClientDelete(id, data.accessToken)
+      customerApi.DeleteOne(id)
     }
   }
   return (
-    <S.WrapperMobile aria-label="client">
-      <h3>{client.name}</h3>
-      <span>{client.email}</span>
+    <S.WrapperMobile aria-label="cliente">
+      <h3>{customer.name}</h3>
+      <span>{customer.email}</span>
       <div>
         <Button
           text="Deletar"
           label="Deletar"
-          onClick={() => handleDeleteThisClient(client.id)}
+          onClick={() => handleDeleteThisClient(customer.id)}
           type="button"
         />
-        <Link href={`/cliente?id=${client.id}`}>
+        <Link href={`/CustomerForm?id=${customer.id}`}>
           <Button text="Editar" label="Editar" type="button" />
         </Link>
       </div>

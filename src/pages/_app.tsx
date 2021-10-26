@@ -5,8 +5,8 @@ import { ThemeProvider } from 'styled-components'
 import { getSession, SessionProvider } from 'next-auth/react'
 import { GlobalStyle } from '../styles/globals'
 import { Theme } from '../styles/theme'
-import { SelectContextProvider } from '../contexts/select'
-import { ClientsContextProvider } from '../contexts/Clients'
+import { SelectContextProvider } from '../contexts/CustomersSelect'
+import { CustomersContextProvider } from '../contexts/Customers'
 
 function MyApp({
   Component,
@@ -26,11 +26,11 @@ function MyApp({
       </Head>
       <GlobalStyle />
       <SessionProvider session={session}>
-        <ClientsContextProvider>
+        <CustomersContextProvider>
           <SelectContextProvider>
             <Component {...pageProps} />
           </SelectContextProvider>
-        </ClientsContextProvider>
+        </CustomersContextProvider>
       </SessionProvider>
     </ThemeProvider>
   )

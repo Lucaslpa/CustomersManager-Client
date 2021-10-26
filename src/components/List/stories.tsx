@@ -1,5 +1,5 @@
 import { Meta, Story } from '@storybook/react'
-import { clientes } from '../../api/ClienteMock'
+import { clientes } from '../../api/customerMock'
 import { List, ListMobile, ListWeb } from './index'
 
 export default {

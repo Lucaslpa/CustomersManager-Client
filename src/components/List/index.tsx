@@ -1,20 +1,18 @@
-import { useEffect, useState } from 'react'
 import * as S from './style'
-import { ClientMobile, ClientWeb } from '../Client'
-import { Client } from '../../types/cliente'
-import { useSelectContext } from '../../contexts/select'
+import { CustomerMobile, CustomerWeb } from '../Customer'
+import { Customer } from '../../types/Customer'
+import { useSelectContext } from '../../contexts/CustomersSelect'
 import { DeleteAll } from '../DeleteAll'
-import { ClientGetMany } from '../../api/clients'
 
 type props = {
-  clients: Client[]
+  customers: Customer[]
 }
 
-export const ListWeb = ({
-  clients,
+export const ListCustomersWeb = ({
+  customers,
   onCheckAll,
 }: {
-  clients: Client[]
+  customers: Customer[]
   onCheckAll: (isCheck: boolean) => void
 }) => (
   <S.WrapperWeb data-testid="web">
@@ -38,27 +36,27 @@ export const ListWeb = ({
       </tr>
     </S.Thead>
     <tbody>
-      {clients.map((client) => (
-        <ClientWeb client={client} key={client.cpf} />
+      {customers.map((customer) => (
+        <CustomerWeb customer={customer} key={customer.cpf} />
       ))}
     </tbody>
   </S.WrapperWeb>
 )
 
-export const ListMobile = ({ clients }: props) => (
+export const ListCustomersMobile = ({ customers }: props) => (
   <S.WrapperMobile data-testid="mobile">
-    {clients.map((client) => (
-      <ClientMobile client={client} key={client.cpf} />
+    {customers.map((customer) => (
+      <CustomerMobile customer={customer} key={customer.cpf} />
     ))}
   </S.WrapperMobile>
 )
 
-export const List = ({ clients }: props) => {
+export const List = ({ customers }: props) => {
   const { Selected, setSelected } = useSelectContext()
   let hiddenDeleteAll = !Selected[0]
 
   function handleCheckAll(isCheck: boolean) {
-    const ids = clients.map((client) => client.id)
+    const ids = customers.map((customer) => customer.id)
     if (isCheck) {
       setSelected!(ids)
       return
@@ -69,8 +67,12 @@ export const List = ({ clients }: props) => {
   return (
     <S.Wrapper aria-label="lista">
       <DeleteAll hidden={hiddenDeleteAll} />
-      <ListWeb clients={clients} onCheckAll={handleCheckAll} />
-      <ListMobile clients={clients} />
+      {customers && customers.length > 0 ? (
+        <>
+          <ListCustomersWeb customers={customers} onCheckAll={handleCheckAll} />
+          <ListCustomersMobile customers={customers} />
+        </>
+      ) : null}
     </S.Wrapper>
   )
 }

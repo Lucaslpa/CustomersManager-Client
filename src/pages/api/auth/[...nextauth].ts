@@ -34,17 +34,21 @@ export default NextAuth({
       credentials: {},
 
       authorize: async (credentials) => {
-        const userLogin = JSON.parse(JSON.stringify(credentials))
-        const response = await LoginAdministrator({
-          password: userLogin.password,
-          username: userLogin.username,
-        })
-        if (response.data.error) {
-          throw new Error(response.data.error)
-        } else {
-          const { token } = response.data
+        try {
+          const userLogin = JSON.parse(JSON.stringify(credentials))
+          const response = await LoginAdministrator({
+            password: userLogin.password,
+            username: userLogin.username,
+          })
+          if (response.data.error) {
+            throw new Error(response.data.error)
+          } else {
+            const { token } = response.data
 
-          return { token }
+            return { token }
+          }
+        } catch (error) {
+          throw new Error('Ops! Algo deu errado')
         }
       },
     }),

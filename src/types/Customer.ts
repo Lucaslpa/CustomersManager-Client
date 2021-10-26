@@ -1,4 +1,4 @@
-export type Client = {
+export type Customer = {
   name: string
   surname: string
   email: string
@@ -9,7 +9,7 @@ export type Client = {
   id: string
 }
 
-export type ClientToUpdate = {
+export type CustomerToUpdate = {
   address?: string
   cpf?: string
   birthday?: string
@@ -19,11 +19,11 @@ export type ClientToUpdate = {
   phone?: string
 }
 
-export type ClientUpdate = {
+export type CustomerUpdated = {
   success: string
 }
 
-export type ClientGetMany = {
+export type CustomerGetMany = {
   docs: Array<{
     address: string
     birthday: string
@@ -47,7 +47,7 @@ export type ClientGetMany = {
   totalDocs: number
 }
 
-export type ClientToCreate = {
+export type CustomerToCreate = {
   address: string
   cpf: string
   birthday: string
@@ -57,7 +57,7 @@ export type ClientToCreate = {
   phone: string
 }
 
-export type newCreatedClient = {
+export type newCreatedCustomer = {
   address: string
   birthday: string
   cpf: string
@@ -69,7 +69,7 @@ export type newCreatedClient = {
   __v: number
 }
 
-export type GetClient = {
+export type GetCustomer = {
   birth?: string
 
   _id?: string
@@ -84,7 +84,7 @@ export type GetClient = {
   id?: string
 }
 
-export type DeleteAll = {
+export type DeleteManyCustomers = {
   status: number
   data: {
     clients: {

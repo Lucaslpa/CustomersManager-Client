@@ -1,12 +1,11 @@
-import { useEffect } from 'react'
-import { useRedirectToLoginIfHasNoSession } from './redirectToLogin'
-import { useClientsContext } from '../contexts/Clients'
+import { useSession } from 'next-auth/react'
+import { useCustomersContext } from '../contexts/Customers'
 import { handleGetClientDataToSaveInContext } from '../utils/getClientsFromApiAndSave'
 
 export const useSetNewClientsContext = () => {
-  const data = useRedirectToLoginIfHasNoSession()
-  const { setClientsContext } = useClientsContext()
-  async function setNewClientsContext(page: number) {
+  const { data } = useSession()
+  const { setCustomersContext } = useCustomersContext()
+  async function setNewCustomersContext(page: number) {
     if (data && data.accessToken) {
       const token = data.accessToken
       const currentClientsPage = page || 1
@@ -15,9 +14,9 @@ export const useSetNewClientsContext = () => {
         token
       )
       if (!newClientsState) return
-      setClientsContext!(newClientsState)
+      setCustomersContext!(newClientsState)
     }
   }
 
-  return setNewClientsContext
+  return setNewCustomersContext
 }

@@ -1,14 +1,15 @@
-import { ClientGetMany } from '../api/clients'
-import { state } from '../contexts/Clients/index'
+import { CustomerApi } from '../api/Customer'
+import { CustomersContext } from '../contexts/Customers/index'
 
 export async function handleGetClientDataToSaveInContext(
   Page: number,
   token: string
 ) {
   try {
-    const { docs, hasPrevPage, page, pageCount, totalDocs, hasNextPage } =
-      await ClientGetMany(Page, token)
+    const customerApi = new CustomerApi(token)
 
+    const { docs, hasPrevPage, page, pageCount, totalDocs, hasNextPage } =
+      await customerApi.GetMany(Page)
     const newDocs = docs
       .map((e) => {
         delete e.__v
@@ -20,13 +21,13 @@ export async function handleGetClientDataToSaveInContext(
         return e
       })
     const newState = {
-      ClientsData: newDocs,
+      Customers: newDocs,
       hasPrevPage,
       page,
       pageCount,
       totalDocs,
       hasNextPage,
-    } as unknown as state
+    } as unknown as CustomersContext
 
     return newState
   } catch (error) {

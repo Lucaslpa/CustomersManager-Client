@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { GetServerSideProps } from 'next'
-import { useState, FormEvent,  } from 'react'
-import { getCsrfToken, signIn,  } from 'next-auth/react'
+import { useState, FormEvent } from 'react'
+import { getCsrfToken, signIn } from 'next-auth/react'
 import Router from 'next/router'
 import * as S from './styles'
 import { TextField } from '../TextField'
@@ -26,7 +26,7 @@ export const LoginForm = ({ csrfToken }: props) => {
     if (loginResult.error) {
       openError(loginResult.error)
     } else {
-      Router.push('/')
+      Router.push('/CustomersList')
     }
   }
 
@@ -47,11 +47,7 @@ export const LoginForm = ({ csrfToken }: props) => {
         onChange={(password) => setFormValues({ ...formValues, password })}
       />
 
-      <Link href="/clientes">
-        <>
-          <Button text="Entrar" size="big" type="submit" />
-        </>
-      </Link>
+      <Button text="Entrar" size="big" type="submit" />
     </S.Wrapper>
   )
 }

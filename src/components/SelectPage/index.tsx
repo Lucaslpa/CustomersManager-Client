@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { ArrowRight, ArrowLeft } from '@styled-icons/bootstrap'
-import { useClientsContext } from '../../contexts/Clients'
+import { useCustomersContext } from '../../contexts/Customers'
 import * as S from './style'
 import { useSetNewClientsContext } from '../../Hooks/setNewClientsContext'
 
 export const SelectPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
-  const { state } = useClientsContext()
+  const { CustomersContext } = useCustomersContext()
   function goNextPage() {
     const sum = currentPage + 1
     if (sum < 1) return
@@ -32,18 +32,18 @@ export const SelectPage = () => {
           aria-label="voltar"
           onClick={() => goBackPage()}
           style={
-            !state.hasPrevPage
+            !CustomersContext.hasPrevPage
               ? { pointerEvents: 'none' }
               : { pointerEvents: 'all' }
           }
         />
-        <span aria-label="página atual">{state.page}</span>
+        <span aria-label="página atual">{currentPage}</span>
         <ArrowRight
           width={25}
           aria-label="próximo"
           onClick={() => goNextPage()}
           style={
-            !state.hasNextPage
+            !CustomersContext.hasNextPage
               ? { pointerEvents: 'none' }
               : { pointerEvents: 'all' }
           }

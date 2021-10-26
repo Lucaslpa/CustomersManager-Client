@@ -1,10 +1,5 @@
-import { useEffect } from 'react'
-import { Login } from '../templates/Login'
+import { Login as Component } from '../templates/Login'
 
-export default function Index() {
-  return (
-    <div>
-      <Login />
-    </div>
-  )
+export default function Login() {
+  return <Component />
 }
