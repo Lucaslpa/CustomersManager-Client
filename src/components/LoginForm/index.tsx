@@ -26,7 +26,7 @@ export const LoginForm = ({ csrfToken }: props) => {
     if (loginResult.error) {
       openError(loginResult.error)
     } else {
-      Router.push('/CustomersList')
+      Router.push('/CustomersList/1')
     }
   }
 

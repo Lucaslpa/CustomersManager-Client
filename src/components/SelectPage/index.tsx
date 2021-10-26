@@ -1,28 +1,31 @@
 import { useState, useEffect } from 'react'
 import { ArrowRight, ArrowLeft } from '@styled-icons/bootstrap'
+import { useRouter } from 'next/router'
 import { useCustomersContext } from '../../contexts/Customers'
 import * as S from './style'
 import { useSetNewClientsContext } from '../../Hooks/setNewClientsContext'
 
 export const SelectPage = () => {
-  const [currentPage, setCurrentPage] = useState(1)
   const { CustomersContext } = useCustomersContext()
+  const router = useRouter()
+  const { page } = router.query
   function goNextPage() {
-    const sum = currentPage + 1
+    const sum = Number(page) + 1
     if (sum < 1) return
-    setCurrentPage(sum)
+    router.push(`/CustomersList/${sum}`)
   }
 
   function goBackPage() {
-    const subtract = currentPage - 1
+    const subtract = Number(page) - 1
     if (subtract < 1) return
-    setCurrentPage(subtract)
+    router.push(`/CustomersList/${subtract}`)
   }
   const setNewClientsContext = useSetNewClientsContext()
 
   useEffect(() => {
-    setNewClientsContext(currentPage)
-  }, [currentPage])
+    setNewClientsContext(Number(page) || 1)
+    console.log(page)
+  }, [page])
 
   return (
     <S.Wrapper>
@@ -37,7 +40,7 @@ export const SelectPage = () => {
               : { pointerEvents: 'all' }
           }
         />
-        <span aria-label="página atual">{currentPage}</span>
+        <span aria-label="página atual">{CustomersContext.page}</span>
         <ArrowRight
           width={25}
           aria-label="próximo"

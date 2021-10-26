@@ -6,9 +6,9 @@ export const LoginAdministrator = async (login: {
   password: string
 }): Promise<httpResponse> => {
   const response = await Api.post<httpResponse>('/administrator/login', login)
-    .then((e) => e.data)
-    .catch((error) => error.response.data)
+    .then((e) => e)
+    .catch((error) => error.response)
   if (!response)
     return { status: 500, data: { error: 'Internal error server' } }
-  return response
+  return response.data
 }

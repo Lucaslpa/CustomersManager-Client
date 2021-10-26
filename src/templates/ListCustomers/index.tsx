@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 import { List } from '../../components/List'
 import { Button } from '../../components/Button'
 import * as S from './style'
@@ -10,12 +11,15 @@ import { useRedirectToLoginIfHasNoSession } from '../../Hooks/redirectToLogin'
 import { useSetNewClientsContext } from '../../Hooks/setNewClientsContext'
 
 export const ListCustomers = () => {
+  const router = useRouter()
+  const { page } = router.query
+
   const { CustomersContext } = useCustomersContext()
   useRedirectToLoginIfHasNoSession()
   const setNewCustomersContext = useSetNewClientsContext()
 
   useEffect(() => {
-    setNewCustomersContext(1)
+    setNewCustomersContext(Number(page) || 1)
   }, [])
 
   return (
