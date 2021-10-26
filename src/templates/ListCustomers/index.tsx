@@ -9,12 +9,13 @@ import { SelectPage } from '../../components/SelectPage'
 import { useCustomersContext } from '../../contexts/Customers'
 import { useRedirectToLoginIfHasNoSession } from '../../Hooks/redirectToLogin'
 import { useSetNewClientsContext } from '../../Hooks/setNewClientsContext'
+import { Loading } from '../../components/Loading'
 
 export const ListCustomers = () => {
   const router = useRouter()
   const { page } = router.query
 
-  const { CustomersContext } = useCustomersContext()
+  const { CustomersContext, setCustomersContext } = useCustomersContext()
   useRedirectToLoginIfHasNoSession()
   const setNewCustomersContext = useSetNewClientsContext()
 
@@ -33,9 +34,11 @@ export const ListCustomers = () => {
             <Button text="Adicionar cliente" size="small" />
           </Link>
         </div>
-        {CustomersContext ? (
+        {!CustomersContext.loading ? (
           <List customers={CustomersContext.Customers} />
-        ) : null}
+        ) : (
+          <Loading />
+        )}
         <SelectPage />
       </S.Wrapper>
     </S.Container>

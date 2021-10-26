@@ -1,6 +1,7 @@
+import * as S from './style'
 
-
-
-export const Loading = () => <div>
-        <h1>loading</h1>
-    </div>
+export const Loading = () => (
+  <S.Wrapper>
+    <img src="/loading.gif" />
+  </S.Wrapper>
+)

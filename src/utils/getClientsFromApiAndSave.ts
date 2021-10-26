@@ -27,6 +27,7 @@ export async function handleGetClientDataToSaveInContext(
       pageCount,
       totalDocs,
       hasNextPage,
+      loading: false,
     } as unknown as CustomersContext
 
     return newState

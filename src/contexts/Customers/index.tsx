@@ -14,6 +14,7 @@ export type CustomersContext = {
   pageCount: number
   totalDocs: number
   hasNextPage: boolean
+  loading: boolean
 }
 
 type context = {
@@ -28,6 +29,7 @@ const defaultState = {
   pageCount: 1,
   totalDocs: 1,
   hasNextPage: false,
+  loading: true,
 } as CustomersContext
 
 const Context = createContext<context>({

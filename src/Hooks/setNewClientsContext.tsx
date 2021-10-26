@@ -4,11 +4,13 @@ import { handleGetClientDataToSaveInContext } from '../utils/getClientsFromApiAn
 
 export const useSetNewClientsContext = () => {
   const { data } = useSession()
-  const { setCustomersContext } = useCustomersContext()
+  const { CustomersContext, setCustomersContext } = useCustomersContext()
   async function setNewCustomersContext(page: number) {
     if (data && data.accessToken) {
       const token = data.accessToken
       const currentClientsPage = page || 1
+      setCustomersContext!({ ...CustomersContext, loading: true })
+
       const newClientsState = await handleGetClientDataToSaveInContext(
         currentClientsPage,
         token
