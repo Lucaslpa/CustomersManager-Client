@@ -1,11 +1,13 @@
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle, css } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
+.Toastify__toast-container {
+ font-size: 1.7rem;
+}
 
 html,
 body {
-  padding: 0;
-  margin: 0;
+  
   font-size: 62.5% !important;
 
 }

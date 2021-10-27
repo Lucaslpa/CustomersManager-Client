@@ -18,14 +18,14 @@ export const DeleteAll = ({ hidden = false }: props) => {
   const customApi = new CustomerApi(data?.accessToken || '')
 
   function handleDeleteCustomersContext() {
-    const oldData = CustomersContext.Customers
-    const newData = oldData.filter((e) => {
+    const oldCustomers = CustomersContext.Customers
+    const newCustomers = oldCustomers.filter((e) => {
       const find = Selected.find((id) => id === e.id)
       if (find) return null
       return find
     })
-    if (newData) {
-      setCustomersContext!({ ...CustomersContext, Customers: newData! })
+    if (newCustomers) {
+      setCustomersContext!({ ...CustomersContext, Customers: newCustomers! })
     }
   }
 

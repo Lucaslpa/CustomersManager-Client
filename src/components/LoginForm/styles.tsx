@@ -4,13 +4,14 @@ export const Wrapper = styled.form`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
+
     padding: ${theme.spaces.medium};
     width: 100%;
-    max-width: 25rem;
+    max-width: 33rem;
     button {
       margin-top: ${theme.spaces.big};
     }
-    div {
+    > div {
       padding: 0;
       margin-bottom: ${theme.spaces.big};
     }

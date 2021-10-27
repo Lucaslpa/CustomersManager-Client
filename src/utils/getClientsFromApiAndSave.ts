@@ -1,7 +1,7 @@
 import { CustomerApi } from '../api/Customer'
 import { CustomersContext } from '../contexts/Customers/index'
 
-export async function handleGetClientDataToSaveInContext(
+export async function getAndConvertCustomersFromApiToContextFormat(
   Page: number,
   token: string
 ) {

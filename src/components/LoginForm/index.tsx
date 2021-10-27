@@ -3,11 +3,13 @@ import { GetServerSideProps } from 'next'
 import { useState, FormEvent } from 'react'
 import { getCsrfToken, signIn } from 'next-auth/react'
 import Router from 'next/router'
+import { ToastContainer, toast } from 'react-toastify'
 import * as S from './styles'
 import { TextField } from '../TextField'
 import { Button } from '../Button'
 import { useManageLabelErrorLogin } from '../../Hooks/LabelError'
 import { LabelStatus } from '../Label'
+import 'react-toastify/dist/ReactToastify.css'
 
 type props = {
   csrfToken?: string | undefined
@@ -16,7 +18,7 @@ type props = {
 export const LoginForm = ({ csrfToken }: props) => {
   const [formValues, setFormValues] = useState({ username: '', password: '' })
   const { Error, openError } = useManageLabelErrorLogin()
-
+  const notify = () => toast(Error)
   async function handleSignIn(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const loginResult = await signIn('login', {
@@ -25,6 +27,7 @@ export const LoginForm = ({ csrfToken }: props) => {
     })
     if (loginResult.error) {
       openError(loginResult.error)
+      toast.error(loginResult.error)
     } else {
       Router.push('/CustomersList/1')
     }
@@ -33,7 +36,7 @@ export const LoginForm = ({ csrfToken }: props) => {
   return (
     <S.Wrapper aria-label="Form" onSubmit={(e) => handleSignIn(e)}>
       <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-      {Error ? <LabelStatus text={Error} status="warning" /> : null}
+      <ToastContainer />
       <TextField
         placeholder="Usuário"
         size="medium"
