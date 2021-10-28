@@ -9,6 +9,6 @@ export const LoginAdministrator = async (login: {
     .then((e) => e)
     .catch((error) => error.response)
   if (!response)
-    return { status: 500, data: { error: 'Internal error server' } }
+    return { status: 500, data: { error: 'Internal server error' } }
   return response.data
 }

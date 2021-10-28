@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { GetServerSideProps } from 'next'
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent, useEffect } from 'react'
 import { getCsrfToken, signIn } from 'next-auth/react'
 import Router from 'next/router'
 import { ToastContainer, toast } from 'react-toastify'
@@ -17,17 +17,18 @@ type props = {
 
 export const LoginForm = ({ csrfToken }: props) => {
   const [formValues, setFormValues] = useState({ username: '', password: '' })
-  const { Error, openError } = useManageLabelErrorLogin()
-  const notify = () => toast(Error)
+  const [Loading, setLoading] = useState(false)
+
   async function handleSignIn(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    setLoading(true)
     const loginResult = await signIn('login', {
       ...formValues,
       redirect: false,
     })
     if (loginResult.error) {
-      openError(loginResult.error)
-      toast.error(loginResult.error)
+      setLoading(false)
+      toast.error(loginResult.error, { theme: 'colored' })
     } else {
       Router.push('/CustomersList/1')
     }
@@ -50,7 +51,12 @@ export const LoginForm = ({ csrfToken }: props) => {
         onChange={(password) => setFormValues({ ...formValues, password })}
       />
 
-      <Button text="Entrar" size="big" type="submit" />
+      <Button
+        text={!Loading ? 'Entrar' : undefined}
+        Icon={Loading ? <S.LoadingIcon /> : undefined}
+        size="big"
+        type="submit"
+      />
     </S.Wrapper>
   )
 }
