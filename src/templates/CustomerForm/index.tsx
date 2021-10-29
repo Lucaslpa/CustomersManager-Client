@@ -8,7 +8,7 @@ import * as S from './style'
 import { Button } from '../../components/Button'
 import { LogOut } from '../../components/LogOut'
 import { CustomerApi } from '../../api/Customer'
-import { Customer as CustomerType } from '../../types/Customer'
+import { CustomerToUpdate } from '../../types/Customer'
 import { useRedirectToLoginIfHasNoSession } from '../../Hooks/redirectToLogin'
 
 export const CustomerForm = () => {
@@ -17,7 +17,7 @@ export const CustomerForm = () => {
 
   const data = useRedirectToLoginIfHasNoSession()
 
-  const [Customer, setCustomer] = useState<CustomerType | undefined>()
+  const [Customer, setCustomer] = useState<CustomerToUpdate | undefined>()
   const customerApi = new CustomerApi(data?.accessToken || '')
 
   async function handleGetCustomer() {

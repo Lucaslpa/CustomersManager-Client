@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { ArrowRight, ArrowLeft } from '@styled-icons/bootstrap'
 import { useRouter } from 'next/router'
 import { useCustomersContext } from '../../contexts/Customers'
 import * as S from './style'
@@ -24,32 +23,26 @@ export const SelectPage = () => {
 
   useEffect(() => {
     setNewClientsContext(Number(page) || 1)
-    console.log(page)
   }, [page])
 
   return (
     <S.Wrapper>
+      <span>Total de clientes: {CustomersContext.totalDocs}</span>
       <div>
-        <ArrowLeft
+        <S.ArrowLeft
           width={25}
           aria-label="voltar"
           onClick={() => goBackPage()}
-          style={
-            !CustomersContext.hasPrevPage
-              ? { pointerEvents: 'none' }
-              : { pointerEvents: 'all' }
-          }
+          hidden={!CustomersContext.hasPrevPage}
         />
-        <span aria-label="página atual">{CustomersContext.page}</span>
-        <ArrowRight
+        <span aria-label="página atual">
+          {CustomersContext.page} de {CustomersContext.pageCount}
+        </span>
+        <S.ArrowRight
           width={25}
           aria-label="próximo"
           onClick={() => goNextPage()}
-          style={
-            !CustomersContext.hasNextPage
-              ? { pointerEvents: 'none' }
-              : { pointerEvents: 'all' }
-          }
+          hidden={!CustomersContext.hasNextPage}
         />
       </div>
     </S.Wrapper>

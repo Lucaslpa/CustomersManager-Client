@@ -21,7 +21,7 @@ export class CustomerApi {
   UpdateOne = async (
     id: string,
     data: ApiTypes.CustomerToUpdate
-  ): Promise<boolean> => {
+  ): Promise<httpResponse> => {
     const response = await Api.put<ApiTypes.CustomerUpdated>(
       `/clients/${id}`,
       data,
@@ -33,26 +33,59 @@ export class CustomerApi {
     )
       .then((res) => res.data)
       .catch((e) => e.response)
-    return response.data.success
+
+    if (response.status !== 200) {
+      return {
+        status: response.status,
+        data: {
+          updated: false,
+          message: 'Falha ao tentar atualizar cliente',
+        },
+      }
+    }
+
+    return {
+      status: response.status,
+      data: {
+        updated: true,
+        message: 'Cliente atualizado com sucesso',
+      },
+    }
   }
 
   CreateOne = async (
     client: ApiTypes.CustomerToCreate | Record<string, unknown>
-  ): Promise<ApiTypes.newCreatedCustomer> => {
-    const response = await Api.post<ApiTypes.newCreatedCustomer>(
-      `/clients`,
-      client,
-      {
-        headers: {
-          Authorization: `Bearer ${this.token}`,
+  ): Promise<httpResponse> => {
+    let response = await Api.post<httpResponse>(`/clients`, client, {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    })
+
+    if (response.data.status === 409)
+      return {
+        status: response.data.status,
+        data: {
+          created: false,
+          message: 'Cliente já criado',
         },
       }
-    )
-      .then((res) => res.data)
-      .catch((e) => e.response)
+    if (response.data.status !== 200)
+      return {
+        status: response.data.status,
+        data: {
+          created: false,
+          message: 'Falha ao criar cliente',
+        },
+      }
 
-    const newCreatedClient = response.data.newClient
-    return newCreatedClient
+    return {
+      status: response.data.status,
+      data: {
+        created: true,
+        message: 'Sucesso ao criar cliente',
+      },
+    }
   }
 
   GetOne = async (id: string): Promise<ApiTypes.Customer> => {
@@ -68,8 +101,6 @@ export class CustomerApi {
     delete CustomerFromApi.__v
     CustomerFromApi.id = CustomerFromApi._id
     delete CustomerFromApi._id
-    CustomerFromApi.birth = CustomerFromApi.birthday
-    delete CustomerFromApi.birthday
 
     return CustomerFromApi
   }

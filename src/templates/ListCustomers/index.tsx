@@ -30,11 +30,11 @@ export const ListCustomers = () => {
 
       <S.Wrapper>
         <h1>Lista de clientes</h1>
-        <div>
+        <S.AddCustomer>
           <Link href="/CustomerForm">
             <Button Icon={<PersonAdd width={25} />} size="small" />
           </Link>
-        </div>
+        </S.AddCustomer>
         {!CustomersContext.loading ? (
           <List customers={CustomersContext.Customers} />
         ) : (

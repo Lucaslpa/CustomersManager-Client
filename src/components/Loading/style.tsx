@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes, css } from 'styled-components'
 import { Spinner9 } from '@styled-icons/icomoon'
 
 export const Wrapper = styled.div`
@@ -18,7 +18,9 @@ const spin = keyframes`
 `
 
 export const LoadingIcon = styled(Spinner9)`
-  animation: 2s linear ${spin} infinite;
-  width: 3rem;
-  fill: blue;
+  ${({ theme }) => css`
+    animation: 2s linear ${spin} infinite;
+    width: 3rem;
+    fill: ${theme.colors.primary};
+  `}
 `

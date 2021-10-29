@@ -21,11 +21,12 @@ export const Wrapper = styled.div`
       font-size: ${theme.fonts.xbig};
       margin: ${theme.spaces.big} 0;
     }
-    & > div {
-      width: 100%;
-      padding: 1rem;
-      display: flex;
-      justify-content: flex-end;
-    }
   `}
+`
+
+export const AddCustomer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
 `

@@ -1,17 +1,17 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { ToastContainer, toast } from 'react-toastify'
+import { useRouter } from 'next/router'
 import * as S from './styles'
 import { TextField } from '../TextField'
 import { Button } from '../Button'
-
-import { Customer, CustomerToCreate } from '../../types/Customer'
+import { CustomerToUpdate, CustomerToCreate } from '../../types/Customer'
 import { CustomerApi } from '../../api/Customer'
 import { LoginFormValidate as Validate } from '../../utils/LoginFormValidator'
 import 'react-toastify/dist/ReactToastify.css'
 
 type props = {
-  customer?: Customer
+  customer?: CustomerToUpdate
 }
 
 type fields =
@@ -25,7 +25,7 @@ type fields =
 
 export const CustomerForm = ({ customer }: props) => {
   const [FormData, setFormData] = useState<
-    CustomerToCreate | Record<string, unknown>
+    CustomerToCreate | CustomerToUpdate | Record<string, unknown>
   >({})
   const { data } = useSession()
   const [FieldsValidate, setFieldsValidate] = useState({
@@ -38,6 +38,8 @@ export const CustomerForm = ({ customer }: props) => {
     surname: true,
   })
   const customerApi = new CustomerApi(data?.accessToken || '')
+  const router = useRouter()
+  const { id } = router.query
 
   const validateField = async (field: fields, value: string) => {
     const isValid = await Validate[field].isValid(value || '')
@@ -60,18 +62,38 @@ export const CustomerForm = ({ customer }: props) => {
     }
 
     if (customer) {
-      await customerApi.UpdateOne(customer.id, FormData)
+      const res = await customerApi.UpdateOne(String(id), FormData)
+      if (res.data.updated) {
+        toast.success(res.data.message, { theme: 'colored' })
+      } else {
+        toast.error(res.data.message, { theme: 'colored' })
+      }
+
       return
     }
     const res = await customerApi.CreateOne(FormData)
-    if (res) {
-      toast.success('Cliente cadastrado no sistema.', { theme: 'colored' })
+    if (res.data.created) {
+      toast.success(res.data.message, { theme: 'colored' })
+    } else {
+      toast.error(res.data.message, { theme: 'colored' })
     }
   }
+
+  useEffect(() => {
+    if (customer) {
+      setFormData(customer)
+    }
+  }, [customer])
   return (
     <>
       <ToastContainer />
-      <S.Wrapper aria-label="Form">
+      <S.Wrapper
+        aria-label="Form"
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleSendForm()
+        }}
+      >
         <S.FieldSet>
           <legend>Nome Completo</legend>
           <TextField
@@ -138,16 +160,14 @@ export const CustomerForm = ({ customer }: props) => {
             size="big"
             type="text"
             onChange={(text) => validateField('birthday', text)}
-            defaultValue={customer ? customer.birth : ''}
+            defaultValue={customer ? customer.birthday : ''}
           />
         </S.FieldSet>
 
         <S.buttonWrapper>
           <Button
             text={customer ? 'Salvar' : 'Cadastrar'}
-            onClick={() => {
-              handleSendForm()
-            }}
+            type="submit"
             size="big"
           />
         </S.buttonWrapper>
