@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
+import { Edit } from '@styled-icons/entypo'
+import { TrashFill } from '@styled-icons/bootstrap'
 import * as S from './style'
 import { Button } from '../Button'
 import { Customer } from '../../types/Customer'
@@ -69,17 +71,17 @@ export const CustomerWeb = ({ customer }: props) => {
         <h3>{customer.name}</h3>
       </td>
       <td>
-        <span>{customer.name}</span>
+        <span>{customer.email}</span>
       </td>
       <td style={{ textAlign: 'center' }}>
+        <Link passHref href={`/CustomerForm?id=${customer.id}`}>
+          <Button Icon={<Edit width={20} />} label="Editar" />
+        </Link>
         <Button
-          text="Deletar"
+          Icon={<TrashFill width={20} />}
           label="Deletar"
           onClick={() => handleDeleteThisClient(customer.id)}
         />
-        <Link passHref href={`/CustomerForm?id=${customer.id}`}>
-          <Button text="Editar" label="Editar" />
-        </Link>
       </td>
     </S.WrapperWeb>
   )
@@ -98,15 +100,14 @@ export const CustomerMobile = ({ customer }: props) => {
       <h3>{customer.name}</h3>
       <span>{customer.email}</span>
       <div>
+        <Link passHref href={`/CustomerForm?id=${customer.id}`}>
+          <Button Icon={<Edit width={20} />} label="Editar" />
+        </Link>
         <Button
-          text="Deletar"
+          Icon={<TrashFill width={20} />}
           label="Deletar"
           onClick={() => handleDeleteThisClient(customer.id)}
-          type="button"
         />
-        <Link href={`/CustomerForm?id=${customer.id}`}>
-          <Button text="Editar" label="Editar" type="button" />
-        </Link>
       </div>
     </S.WrapperMobile>
   )

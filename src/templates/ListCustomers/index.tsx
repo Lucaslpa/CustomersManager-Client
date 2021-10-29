@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { PersonAdd } from '@styled-icons/evaicons-solid'
 import { List } from '../../components/List'
 import { Button } from '../../components/Button'
 import * as S from './style'
@@ -31,7 +32,7 @@ export const ListCustomers = () => {
         <h1>Lista de clientes</h1>
         <div>
           <Link href="/CustomerForm">
-            <Button text="Adicionar cliente" size="small" />
+            <Button Icon={<PersonAdd width={25} />} size="small" />
           </Link>
         </div>
         {!CustomersContext.loading ? (

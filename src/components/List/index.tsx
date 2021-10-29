@@ -66,7 +66,7 @@ export const List = ({ customers }: props) => {
 
   return (
     <S.Wrapper aria-label="lista">
-      <DeleteAll hidden={hiddenDeleteAll} />
+      <DeleteAll />
       {customers && customers.length > 0 ? (
         <>
           <ListCustomersWeb customers={customers} onCheckAll={handleCheckAll} />

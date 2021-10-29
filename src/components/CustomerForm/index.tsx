@@ -29,22 +29,22 @@ export const CustomerForm = ({ customer }: props) => {
   >({})
   const { data } = useSession()
   const [FieldsValidate, setFieldsValidate] = useState({
-    address: false,
-    birthday: false,
-    cpf: false,
-    email: false,
-    name: false,
-    phone: false,
-    surname: false,
+    address: true,
+    birthday: true,
+    cpf: true,
+    email: true,
+    name: true,
+    phone: true,
+    surname: true,
   })
   const customerApi = new CustomerApi(data?.accessToken || '')
 
   const validateField = async (field: fields, value: string) => {
     const isValid = await Validate[field].isValid(value || '')
     if (!isValid) {
-      setFieldsValidate({ ...FieldsValidate, [field]: true })
-    } else {
       setFieldsValidate({ ...FieldsValidate, [field]: false })
+    } else {
+      setFieldsValidate({ ...FieldsValidate, [field]: true })
     }
 
     setFormData({ ...FormData, [field]: value })
@@ -52,16 +52,17 @@ export const CustomerForm = ({ customer }: props) => {
 
   async function handleSendForm() {
     if (!data || !data.accessToken || !FormData) return
+    const formIsValid = await Validate.ValidateAll(FormData)
+    if (!formIsValid.FormIsValid) {
+      toast.error('Dados inválidos.', { theme: 'colored' })
+      setFieldsValidate(formIsValid.fieldsValidate)
+      return
+    }
+
     if (customer) {
       await customerApi.UpdateOne(customer.id, FormData)
       return
     }
-    const formIsValid = await Validate.validateAll.isValid(FormData)
-    if (!formIsValid) {
-      toast.error('Dados inválidos.', { theme: 'colored' })
-      return
-    }
-
     const res = await customerApi.CreateOne(FormData)
     if (res) {
       toast.success('Cliente cadastrado no sistema.', { theme: 'colored' })
@@ -74,7 +75,7 @@ export const CustomerForm = ({ customer }: props) => {
         <S.FieldSet>
           <legend>Nome Completo</legend>
           <TextField
-            error={FieldsValidate.name}
+            error={!FieldsValidate.name}
             placeholder="Nome"
             size="big"
             type="text"
@@ -82,7 +83,7 @@ export const CustomerForm = ({ customer }: props) => {
             defaultValue={customer ? customer.name : ''}
           />
           <TextField
-            error={FieldsValidate.surname}
+            error={!FieldsValidate.surname}
             placeholder="Sobrenome"
             size="big"
             type="text"
@@ -94,7 +95,7 @@ export const CustomerForm = ({ customer }: props) => {
         <S.FieldSet column>
           <legend>Contato</legend>
           <TextField
-            error={FieldsValidate.email}
+            error={!FieldsValidate.email}
             placeholder="Email"
             size="big"
             type="email"
@@ -103,7 +104,7 @@ export const CustomerForm = ({ customer }: props) => {
           />
           <div id="flex">
             <TextField
-              error={FieldsValidate.phone}
+              error={!FieldsValidate.phone}
               placeholder="Telefone"
               size="big"
               type="tel"
@@ -111,7 +112,7 @@ export const CustomerForm = ({ customer }: props) => {
               defaultValue={customer ? customer.phone : ''}
             />
             <TextField
-              error={FieldsValidate.address}
+              error={!FieldsValidate.address}
               placeholder="Endereço"
               size="big"
               type="text"
@@ -124,7 +125,7 @@ export const CustomerForm = ({ customer }: props) => {
         <S.FieldSet>
           <legend>Outros</legend>
           <TextField
-            error={FieldsValidate.cpf}
+            error={!FieldsValidate.cpf}
             placeholder="CPF"
             size="big"
             type="text"
@@ -132,7 +133,7 @@ export const CustomerForm = ({ customer }: props) => {
             defaultValue={customer ? customer.cpf : ''}
           />
           <TextField
-            error={FieldsValidate.birthday}
+            error={!FieldsValidate.birthday}
             placeholder="Data de Nascimento"
             size="big"
             type="text"
