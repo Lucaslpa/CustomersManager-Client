@@ -5,7 +5,7 @@ export type Customer = {
   address: string
   phone: string
   cpf: string
-  birth: string
+  birthday: string
   id: string
 }
 
@@ -24,7 +24,7 @@ export type CustomerUpdated = {
 }
 
 export type CustomerGetMany = {
-  docs: Array<{
+  customers: Array<{
     address: string
     birthday: string
     cpf: string
@@ -32,9 +32,7 @@ export type CustomerGetMany = {
     name: string
     phone: string
     surname: string
-    __v?: number
-    _id?: string
-    id?: string
+    id: string
   }>
   hasPrevPage: boolean
   hasNextPage: boolean

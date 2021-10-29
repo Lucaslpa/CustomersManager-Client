@@ -1,4 +1,4 @@
-import { Api } from './api'
+import { Api } from '.'
 import { httpResponse } from '../types/httpResponse'
 
 export const LoginAdministrator = async (login: {

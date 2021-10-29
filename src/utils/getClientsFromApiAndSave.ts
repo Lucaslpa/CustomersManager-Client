@@ -10,7 +10,7 @@ export async function getAndConvertCustomersFromApiToContextFormat(
 
     const { docs, hasPrevPage, page, pageCount, totalDocs, hasNextPage } =
       await customerApi.GetMany(Page)
-    const newDocs = docs
+    const Customers = docs
       .map((e) => {
         delete e.__v
         return e

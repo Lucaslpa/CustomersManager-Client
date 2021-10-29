@@ -2,12 +2,13 @@ import { Customer as CustomerType } from '../types/Customer'
 
 export const Customer = {
   address: '12 quadra 5',
-  birth: '12/56/3',
+  birthday: '12/56/3',
   cpf: '232244',
   email: '3sdsdluca@gmail',
   name: 'usersa',
   phone: '22424',
   surname: 'mestre',
+  id: '121',
 } as CustomerType
 
 export const Customers = [

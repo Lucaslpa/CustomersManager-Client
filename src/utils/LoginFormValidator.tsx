@@ -26,20 +26,18 @@ export const surname = yup.string().min(5).required()
 
 const phone = yup.string().min(10).max(12).required()
 
-export const ValidateAll = async (customer: any) => {
-  return {
-    FormIsValid: await validateAll.isValid(customer),
-    fieldsValidate: {
-      name: await name.isValid(customer.name),
-      phone: await phone.isValid(customer.phone),
-      email: await email.isValid(customer.email),
-      surname: await surname.isValid(customer.surname),
-      cpf: await cpf.isValid(customer.cpf),
-      birthday: await birthday.isValid(customer.birthday || customer.birth),
-      address: await address.isValid(customer.address),
-    },
-  }
-}
+export const ValidateAll = async (customer: any) => ({
+  FormIsValid: await validateAll.isValid(customer),
+  fieldsValidate: {
+    name: await name.isValid(customer.name),
+    phone: await phone.isValid(customer.phone),
+    email: await email.isValid(customer.email),
+    surname: await surname.isValid(customer.surname),
+    cpf: await cpf.isValid(customer.cpf),
+    birthday: await birthday.isValid(customer.birthday || customer.birth),
+    address: await address.isValid(customer.address),
+  },
+})
 
 export const LoginFormValidate = {
   phone,
