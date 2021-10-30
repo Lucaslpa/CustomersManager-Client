@@ -7,8 +7,8 @@ import * as S from './style'
 import { Button } from '../Button'
 import { Customer } from '../../types/Customer'
 import { useSelectContext } from '../../contexts/CustomersSelect'
-import { CustomerApi } from '../../api/Customer'
 import { useCustomersContext } from '../../contexts/Customers'
+import { DeleteOne } from '../../services/customer/deleteOne'
 
 type props = {
   customer: Customer
@@ -18,7 +18,8 @@ export const CustomerWeb = ({ customer }: props) => {
   const { Selected, setSelected } = useSelectContext()
   const [isSelected, setIsSelected] = useState(false)
   const { data } = useSession()
-  const customerApi = new CustomerApi(data?.accessToken || '')
+  const accessToken = data?.accessToken
+
   const { CustomersContext, setCustomersContext } = useCustomersContext()
 
   function handleCheckUncheck(id: string) {
@@ -44,15 +45,15 @@ export const CustomerWeb = ({ customer }: props) => {
   useEffect(() => handleCheckIfIsSelected(), [Selected])
 
   async function handleDeleteThisClient(id: string) {
-    if (data && data.accessToken) {
-      const res = await customerApi.DeleteOne(id)
-      if (res.data.success) {
-        const newCustomers = CustomersContext.Customers.filter(
+    if (data && accessToken) {
+      const res = await DeleteOne(id, accessToken)
+      if (res) {
+        const newCustomers = CustomersContext.customers.filter(
           (customerFilter) => customerFilter.id !== id
         )
         setCustomersContext!({
           ...CustomersContext,
-          Customers: newCustomers,
+          customers: newCustomers,
         })
       }
     }
@@ -89,10 +90,10 @@ export const CustomerWeb = ({ customer }: props) => {
 
 export const CustomerMobile = ({ customer }: props) => {
   const { data } = useSession()
-  const customerApi = new CustomerApi(data?.accessToken || '')
+  const accessToken = data?.accessToken
   async function handleDeleteThisClient(id: string) {
-    if (data && data.accessToken) {
-      customerApi.DeleteOne(id)
+    if (data && accessToken) {
+      await DeleteOne(id, accessToken)
     }
   }
   return (

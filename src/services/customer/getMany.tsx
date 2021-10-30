@@ -38,6 +38,6 @@ export const GetMany = async (
 
     return customer
   })
-
+  console.log(response, customers)
   return { ...response.data.data.clients, customers }
 }

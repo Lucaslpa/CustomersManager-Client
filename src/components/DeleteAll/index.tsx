@@ -5,7 +5,7 @@ import * as S from './style'
 import { useSelectContext } from '../../contexts/CustomersSelect'
 import { useCustomersContext } from '../../contexts/Customers'
 import { Button } from '../Button'
-import { CustomerApi } from '../../api/Customer'
+import { DeleteMany } from '../../services/customer/deleteMany'
 
 export type props = {
   hidden?: boolean
@@ -15,23 +15,24 @@ export const DeleteAll = () => {
   const { Selected, setSelected } = useSelectContext()
   const { CustomersContext, setCustomersContext } = useCustomersContext()
   const { data } = useSession()
-  const customerApi = new CustomerApi(data?.accessToken || '')
+  const accessToken = data.acessToken
+
   function handleDeleteCustomersFromContext() {
-    const oldCustomers = CustomersContext.Customers
+    const oldCustomers = CustomersContext.customers
     const newCustomers = oldCustomers.filter((e) => {
       const find = Selected.find((id) => id === e.id)
       if (find) return null
       return find
     })
     if (newCustomers) {
-      setCustomersContext!({ ...CustomersContext, Customers: newCustomers! })
+      setCustomersContext!({ ...CustomersContext, customers: newCustomers! })
       setSelected!([])
     }
   }
 
   async function handleDeleteManyCustomers() {
-    if (data && data.accessToken) {
-      const DeleteAllResponse = await customerApi.DeleteMany(Selected)
+    if (data && accessToken) {
+      const DeleteAllResponse = await DeleteMany(Selected, accessToken)
       if (DeleteAllResponse) {
         handleDeleteCustomersFromContext()
       }

@@ -1,14 +1,12 @@
-import Link from 'next/link'
 import { GetServerSideProps } from 'next'
-import { useState, FormEvent, useEffect } from 'react'
+import { useState, FormEvent } from 'react'
 import { getCsrfToken, signIn } from 'next-auth/react'
 import Router from 'next/router'
 import { ToastContainer, toast } from 'react-toastify'
 import * as S from './styles'
 import { TextField } from '../TextField'
 import { Button } from '../Button'
-import { useManageLabelErrorLogin } from '../../Hooks/LabelError'
-import { LabelStatus } from '../Label'
+
 import 'react-toastify/dist/ReactToastify.css'
 
 type props = {
@@ -22,14 +20,29 @@ export const LoginForm = ({ csrfToken }: props) => {
   async function handleSignIn(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
+
+    if (!formValues.username) {
+      toast.error('Forneça o administrador', { theme: 'colored' })
+      setLoading(false)
+      return
+    }
+
+    if (!formValues.password) {
+      toast.error('Forneça a senha', { theme: 'colored' })
+      setLoading(false)
+      return
+    }
+
     const loginResult = await signIn('login', {
       ...formValues,
       redirect: false,
     })
+
     if (loginResult.error) {
       setLoading(false)
       toast.error(loginResult.error, { theme: 'colored' })
     } else {
+      toast.success('Login bem sucedido', { theme: 'colored' })
       Router.push('/CustomersList/1')
     }
   }
@@ -39,7 +52,7 @@ export const LoginForm = ({ csrfToken }: props) => {
       <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
       <ToastContainer />
       <TextField
-        placeholder="Usuário"
+        placeholder="Administrador"
         size="medium"
         type="text"
         onChange={(username) => setFormValues({ ...formValues, username })}

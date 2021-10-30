@@ -6,7 +6,6 @@ import * as S from './styles'
 import { TextField } from '../TextField'
 import { Button } from '../Button'
 import { CustomerToUpdate, CustomerToCreate } from '../../types/Customer'
-import { CustomerApi } from '../../api/Customer'
 import { LoginFormValidate as Validate } from '../../utils/LoginFormValidator'
 import 'react-toastify/dist/ReactToastify.css'
 

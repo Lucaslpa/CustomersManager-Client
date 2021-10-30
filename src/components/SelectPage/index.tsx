@@ -2,28 +2,22 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useCustomersContext } from '../../contexts/Customers'
 import * as S from './style'
-import { useSetNewClientsContext } from '../../Hooks/setNewClientsContext'
 
 export const SelectPage = () => {
   const { CustomersContext } = useCustomersContext()
   const router = useRouter()
   const { page } = router.query
   function goNextPage() {
-    const sum = Number(page) + 1
-    if (sum < 1) return
-    router.push(`/CustomersList/${sum}`)
+    const nextPage = Number(page) + 1
+    if (nextPage < 1) return
+    router.push(`/CustomersList/${nextPage}`)
   }
 
   function goBackPage() {
-    const subtract = Number(page) - 1
-    if (subtract < 1) return
-    router.push(`/CustomersList/${subtract}`)
+    const backPage = Number(page) - 1
+    if (backPage < 1) return
+    router.push(`/CustomersList/${backPage}`)
   }
-  const setNewClientsContext = useSetNewClientsContext()
-
-  useEffect(() => {
-    setNewClientsContext(Number(page) || 1)
-  }, [page])
 
   return (
     <S.Wrapper>

@@ -8,7 +8,7 @@ import {
 import { Customer } from '../../types/Customer'
 
 export type CustomersContext = {
-  Customers: Customer[]
+  customers: Customer[]
   hasPrevPage: boolean
   page: number
   pageCount: number
@@ -23,7 +23,7 @@ type context = {
 }
 
 const defaultState = {
-  Customers: [],
+  customers: [],
   hasPrevPage: false,
   page: 1,
   pageCount: 1,

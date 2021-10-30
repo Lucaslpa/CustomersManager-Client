@@ -7,7 +7,6 @@ import { CustomerForm as Component } from '../../components/CustomerForm'
 import * as S from './style'
 import { Button } from '../../components/Button'
 import { LogOut } from '../../components/LogOut'
-import { CustomerApi } from '../../api/Customer'
 import { CustomerToUpdate } from '../../types/Customer'
 import { useRedirectToLoginIfHasNoSession } from '../../Hooks/redirectToLogin'
 

@@ -40,11 +40,10 @@ export default NextAuth({
           username: userLogin.username,
         })
 
-        if (response.data.error) {
-          throw new Error(response.data.error)
+        if (!response.login) {
+          throw new Error(response.message)
         } else {
-          const { token } = response.data
-          return { token }
+          return { token: response.token! }
         }
       },
     }),
