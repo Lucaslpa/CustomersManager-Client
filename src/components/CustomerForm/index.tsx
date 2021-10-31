@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
 import { ToastContainer, toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import * as S from './styles'
 import { TextField } from '../TextField'
 import { Button } from '../Button'
-import { CustomerToUpdate, CustomerToCreate } from '../../types/Customer'
+import { CustomerToCreate } from '../../types/Customer'
+import { CreateOne } from '../../services/customer/createOne'
+import { UpdateOne } from '../../services/customer/updateOne'
+import { useRedirectToLoginIfHasNoSession } from '../../Hooks/redirectToLogin'
+
 import { LoginFormValidate as Validate } from '../../utils/LoginFormValidator'
 import 'react-toastify/dist/ReactToastify.css'
 
 type props = {
-  customer?: CustomerToUpdate
+  customer?: CustomerToCreate
 }
 
 type fields =
@@ -22,11 +25,19 @@ type fields =
   | 'phone'
   | 'surname'
 
-export const CustomerForm = ({ customer }: props) => {
-  const [FormData, setFormData] = useState<
-    CustomerToCreate | CustomerToUpdate | Record<string, unknown>
-  >({})
-  const { data } = useSession()
+export const CustomerForm = ({
+  customer = {
+    address: '',
+    birthday: '',
+    cpf: '',
+    email: '',
+    name: '',
+    phone: '',
+    surname: '',
+  },
+}: props) => {
+  const [FormData, setFormData] = useState<CustomerToCreate>(customer)
+
   const [FieldsValidate, setFieldsValidate] = useState({
     address: true,
     birthday: true,
@@ -36,9 +47,11 @@ export const CustomerForm = ({ customer }: props) => {
     phone: true,
     surname: true,
   })
-  const customerApi = new CustomerApi(data?.accessToken || '')
+
   const router = useRouter()
   const { id } = router.query
+  const data = useRedirectToLoginIfHasNoSession()
+  const accessToken = String(data?.accessToken)
 
   const validateField = async (field: fields, value: string) => {
     const isValid = await Validate[field].isValid(value || '')
@@ -51,38 +64,45 @@ export const CustomerForm = ({ customer }: props) => {
     setFormData({ ...FormData, [field]: value })
   }
 
-  async function handleSendForm() {
-    if (!data || !data.accessToken || !FormData) return
-    const formIsValid = await Validate.ValidateAll(FormData)
-    if (!formIsValid.FormIsValid) {
-      toast.error('Dados inválidos.', { theme: 'colored' })
-      setFieldsValidate(formIsValid.fieldsValidate)
-      return
-    }
-
-    if (customer) {
-      const res = await customerApi.UpdateOne(String(id), FormData)
-      if (res.data.updated) {
-        toast.success(res.data.message, { theme: 'colored' })
-      } else {
-        toast.error(res.data.message, { theme: 'colored' })
-      }
-
-      return
-    }
-    const res = await customerApi.CreateOne(FormData)
-    if (res.data.created) {
-      toast.success(res.data.message, { theme: 'colored' })
+  async function handleUpdateCustomer() {
+    const updateResponse = await UpdateOne(String(id), FormData, accessToken)
+    if (updateResponse.updated) {
+      toast.success(updateResponse.message, { theme: 'colored' })
     } else {
-      toast.error(res.data.message, { theme: 'colored' })
+      toast.error(updateResponse.message, { theme: 'colored' })
     }
   }
 
-  useEffect(() => {
-    if (customer) {
-      setFormData(customer)
+  async function handleCreateCustomer() {
+    const createResponse = await CreateOne(FormData, accessToken)
+    if (createResponse.created) {
+      toast.success(createResponse.message, { theme: 'colored' })
+    } else {
+      toast.error(createResponse.message, { theme: 'colored' })
     }
-  }, [customer])
+  }
+
+  async function handleValidateFields() {
+    const formIsValid = await Validate.ValidateAll(FormData)
+    toast.error('Dados inválidos.', { theme: 'colored' })
+    setFieldsValidate(formIsValid.fieldsValidate)
+    return formIsValid.FormIsValid
+  }
+
+  async function handleSendForm() {
+    if (!data || !data.accessToken || !FormData) return
+
+    const formIsValid = await handleValidateFields()
+
+    if (!formIsValid) return
+
+    if (customer) {
+      handleUpdateCustomer()
+    } else {
+      handleCreateCustomer()
+    }
+  }
+
   return (
     <>
       <ToastContainer />
@@ -165,7 +185,7 @@ export const CustomerForm = ({ customer }: props) => {
 
         <S.buttonWrapper>
           <Button
-            text={customer ? 'Salvar' : 'Cadastrar'}
+            text={customer.cpf ? 'Salvar' : 'Cadastrar'}
             type="submit"
             size="big"
           />

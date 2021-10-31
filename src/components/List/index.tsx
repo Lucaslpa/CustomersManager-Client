@@ -52,8 +52,7 @@ export const ListCustomersMobile = ({ customers }: props) => (
 )
 
 export const List = ({ customers }: props) => {
-  const { Selected, setSelected } = useSelectContext()
-  let hiddenDeleteAll = !Selected[0]
+  const { setSelected } = useSelectContext()
 
   function handleCheckAll(isCheck: boolean) {
     const ids = customers.map((customer) => customer.id)

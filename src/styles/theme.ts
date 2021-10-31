@@ -17,6 +17,7 @@ export const Theme = {
     secondary: '#95aded',
     warning: '#fa1919',
     success: '#02b514',
+    selected: '#1414e649',
   },
 }
 export type theme = typeof Theme

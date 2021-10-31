@@ -21,7 +21,11 @@ export const WrapperWeb = styled.tr`
   `}
 `
 
-export const WrapperMobile = styled.div`
+type wrapperMobileProps = {
+  selected: boolean
+}
+
+export const WrapperMobile = styled.div<wrapperMobileProps>`
   font-size: 2rem;
   display: flex;
   flex-direction: column;
@@ -29,7 +33,9 @@ export const WrapperMobile = styled.div`
   justify-content: space-around;
   height: 13rem;
   border: solid 0.5px #e6e6e63b;
-
+  ${({ selected, theme }) => css`
+    background-color: ${selected ? theme.colors.selected : null};
+  `};
   button {
     margin: 0 2rem;
   }

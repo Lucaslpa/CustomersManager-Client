@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/dom'
-import { CustomerMobile, CustomerWeb } from '.'
+import { CustomerMobile, CustomerWeb } from './index'
 import { renderConfig } from '../../utils/renderConfig'
 import { Customer } from '../../api/customerMock'
 

@@ -9,63 +9,26 @@ import { Customer } from '../../types/Customer'
 import { useSelectContext } from '../../contexts/CustomersSelect'
 import { useCustomersContext } from '../../contexts/Customers'
 import { DeleteOne } from '../../services/customer/deleteOne'
+import { useDeleteCustomer } from './hooks/deleteThisCustomer'
+import { useCheckCustomer } from './hooks/checkCustomer'
 
 type props = {
   customer: Customer
 }
 
 export const CustomerWeb = ({ customer }: props) => {
-  const { Selected, setSelected } = useSelectContext()
-  const [isSelected, setIsSelected] = useState(false)
-  const { data } = useSession()
-  const accessToken = data?.accessToken
-
-  const { CustomersContext, setCustomersContext } = useCustomersContext()
-
-  function handleCheckUncheck(id: string) {
-    const verifyIfAlreadyExist = Selected.find((ID) => ID === id)
-    const AlreadyExist = verifyIfAlreadyExist
-
-    if (AlreadyExist) {
-      const selectedContextWithoutElement = Selected.filter(
-        (ID: string) => ID !== id
-      )
-      setSelected!(selectedContextWithoutElement)
-      return
-    }
-    setSelected!([...Selected, id])
-  }
-
-  function handleCheckIfIsSelected() {
-    const IsSelected = Selected.find((ID) => ID === customer.id)
-    if (IsSelected) setIsSelected(true)
-    if (!IsSelected) setIsSelected(false)
-  }
-
-  useEffect(() => handleCheckIfIsSelected(), [Selected])
-
-  async function handleDeleteThisClient(id: string) {
-    if (data && accessToken) {
-      const res = await DeleteOne(id, accessToken)
-      if (res) {
-        const newCustomers = CustomersContext.customers.filter(
-          (customerFilter) => customerFilter.id !== id
-        )
-        setCustomersContext!({
-          ...CustomersContext,
-          customers: newCustomers,
-        })
-      }
-    }
-  }
+  const handleDeleteThisCustomer = useDeleteCustomer()
+  const { isChecked, handleCheckCustomer } = useCheckCustomer(customer.id)
 
   return (
     <S.WrapperWeb aria-label="cliente">
       <td style={{ textAlign: 'center' }}>
         <input
           type="checkbox"
-          onChange={() => handleCheckUncheck(customer.id)}
-          checked={isSelected}
+          onChange={(e) => {
+            handleCheckCustomer()
+          }}
+          checked={isChecked}
         />
       </td>
       <td>
@@ -81,7 +44,7 @@ export const CustomerWeb = ({ customer }: props) => {
         <Button
           Icon={<TrashFill width={20} />}
           label="Deletar"
-          onClick={() => handleDeleteThisClient(customer.id)}
+          onClick={() => handleDeleteThisCustomer(customer.id)}
         />
       </td>
     </S.WrapperWeb>
@@ -89,15 +52,15 @@ export const CustomerWeb = ({ customer }: props) => {
 }
 
 export const CustomerMobile = ({ customer }: props) => {
-  const { data } = useSession()
-  const accessToken = data?.accessToken
-  async function handleDeleteThisClient(id: string) {
-    if (data && accessToken) {
-      await DeleteOne(id, accessToken)
-    }
-  }
+  const handleDeleteThisCustomer = useDeleteCustomer()
+  const { isChecked, handleCheckCustomer } = useCheckCustomer(customer.id)
+
   return (
-    <S.WrapperMobile aria-label="cliente">
+    <S.WrapperMobile
+      selected={isChecked}
+      aria-label="cliente"
+      onClick={() => handleCheckCustomer()}
+    >
       <h3>{customer.name}</h3>
       <span>{customer.email}</span>
       <div>
@@ -107,7 +70,7 @@ export const CustomerMobile = ({ customer }: props) => {
         <Button
           Icon={<TrashFill width={20} />}
           label="Deletar"
-          onClick={() => handleDeleteThisClient(customer.id)}
+          onClick={() => handleDeleteThisCustomer(customer.id)}
         />
       </div>
     </S.WrapperMobile>

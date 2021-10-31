@@ -15,7 +15,7 @@ export const DeleteAll = () => {
   const { Selected, setSelected } = useSelectContext()
   const { CustomersContext, setCustomersContext } = useCustomersContext()
   const { data } = useSession()
-  const accessToken = data.acessToken
+  const accessToken = String(data?.accessToken)
 
   function handleDeleteCustomersFromContext() {
     const oldCustomers = CustomersContext.customers

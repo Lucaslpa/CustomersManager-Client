@@ -1,30 +1,28 @@
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { Back } from '@styled-icons/entypo'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
 import { CustomerForm as Component } from '../../components/CustomerForm'
 import * as S from './style'
 import { Button } from '../../components/Button'
 import { LogOut } from '../../components/LogOut'
 import { CustomerToUpdate } from '../../types/Customer'
 import { useRedirectToLoginIfHasNoSession } from '../../Hooks/redirectToLogin'
+import { GetOne } from '../../services/customer/getOne'
 
 export const CustomerForm = () => {
   const router = useRouter()
   const { id } = router.query
 
   const data = useRedirectToLoginIfHasNoSession()
-
+  const accessToken = String(data?.accessToken)
   const [Customer, setCustomer] = useState<CustomerToUpdate | undefined>()
-  const customerApi = new CustomerApi(data?.accessToken || '')
 
   async function handleGetCustomer() {
     if (!data || !data.accessToken || !id) return
-    customerApi
-      .GetOne(String(id))
-      .then((customer) => setCustomer(customer))
-      .catch((error) => console.log(error.response))
+
+    const customerFromApi = await GetOne(String(id), accessToken)
+    setCustomer(customerFromApi)
   }
 
   useEffect(() => {
