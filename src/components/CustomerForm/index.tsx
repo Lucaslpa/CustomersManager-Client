@@ -10,7 +10,6 @@ import { UpdateOne } from '../../services/customer/updateOne'
 import { useRedirectToLoginIfHasNoSession } from '../../Hooks/redirectToLogin'
 
 import { LoginFormValidate as Validate } from '../../utils/LoginFormValidator'
-import 'react-toastify/dist/ReactToastify.css'
 
 type props = {
   customer?: CustomerToCreate
@@ -108,7 +107,6 @@ export const CustomerForm = ({
 
   return (
     <>
-      <ToastContainer />
       <S.Wrapper
         aria-label="Form"
         onSubmit={(e) => {

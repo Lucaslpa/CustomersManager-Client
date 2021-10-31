@@ -3,10 +3,12 @@ import Head from 'next/head'
 import { ReactNode } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { getSession, SessionProvider } from 'next-auth/react'
+import { ToastContainer } from 'react-toastify'
 import { GlobalStyle } from '../styles/globals'
 import { Theme } from '../styles/theme'
 import { SelectContextProvider } from '../contexts/CustomersSelect'
 import { CustomersContextProvider } from '../contexts/Customers'
+import 'react-toastify/dist/ReactToastify.css'
 
 function MyApp({
   Component,
@@ -28,6 +30,7 @@ function MyApp({
       <SessionProvider session={session}>
         <CustomersContextProvider>
           <SelectContextProvider>
+            <ToastContainer />
             <Component {...pageProps} />
           </SelectContextProvider>
         </CustomersContextProvider>

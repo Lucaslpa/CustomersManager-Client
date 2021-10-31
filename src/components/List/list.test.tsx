@@ -11,6 +11,10 @@ jest.mock('next-auth/react', () => ({
   }),
 }))
 
+jest.mock('next/router', () => ({
+  push: () => ({}),
+}))
+
 describe('List', () => {
   it('should match to snapshot', () => {
     renderConfig(<List customers={Customers} />)

@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useCustomersContext } from '../../contexts/Customers'
 import * as S from './style'

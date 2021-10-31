@@ -36,7 +36,7 @@ export const CustomerForm = () => {
       <LogOut />
       <S.Wrapper>
         <div>
-          <Link href="/CustomersList/1">
+          <Link passHref href="/CustomersList/1">
             <Button Icon={<Back width={20} />} />
           </Link>
           <h1>

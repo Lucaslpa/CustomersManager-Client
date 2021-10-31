@@ -11,6 +11,19 @@ jest.mock('next-auth/react', () => ({
   }),
 }))
 
+jest.mock('next/router', () => ({
+  push() {
+    return null
+  },
+  useRoute() {
+    return {
+      query: {
+        page: 1,
+      },
+    }
+  },
+}))
+
 describe('Customer', () => {
   it('CustomerMobile should match to snapshot', () => {
     renderConfig(<CustomerMobile customer={Customer} />)
