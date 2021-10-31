@@ -17,6 +17,8 @@ export const CreateOne = async (
     },
   })
 
+  console.log(response)
+
   if (response.data.status === 409)
     return {
       created: false,

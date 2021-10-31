@@ -55,6 +55,7 @@ export const CustomerForm = ({
 
   const validateField = async (field: fields, value: string) => {
     const isValid = await Validate[field].isValid(value || '')
+
     if (!isValid) {
       setFieldsValidate({ ...FieldsValidate, [field]: false })
     } else {
@@ -84,7 +85,6 @@ export const CustomerForm = ({
 
   async function handleValidateFields() {
     const formIsValid = await Validate.ValidateAll(FormData)
-    toast.error('Dados inválidos.', { theme: 'colored' })
     setFieldsValidate(formIsValid.fieldsValidate)
     return formIsValid.FormIsValid
   }
@@ -94,9 +94,12 @@ export const CustomerForm = ({
 
     const formIsValid = await handleValidateFields()
 
-    if (!formIsValid) return
+    if (!formIsValid) {
+      toast.error('Dados inválidos.', { theme: 'colored' })
+      return
+    }
 
-    if (customer) {
+    if (customer.cpf) {
       handleUpdateCustomer()
     } else {
       handleCreateCustomer()
