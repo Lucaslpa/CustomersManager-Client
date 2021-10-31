@@ -14,7 +14,7 @@ export const LoginAdministrator = async (login: {
   const response = await Api.post<httpResponse>('/administrator/login', login)
 
   if (response.data.status === 400)
-    return { login: false, message: 'Admninistrador inexistente' }
+    return { login: false, message: 'Admininistrador inexistente' }
   if (response.data.status !== 200 || !response.data.data.token)
     return { login: false, message: 'Algo inesperado aconteceu' }
 

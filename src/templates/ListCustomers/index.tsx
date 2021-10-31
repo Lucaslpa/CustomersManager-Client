@@ -16,24 +16,27 @@ export const ListCustomers = () => {
   const router = useRouter()
   const { page } = router.query
   const data = useRedirectToLoginIfHasNoSession()
-  const accessToken = `${data?.accessToken}`
+  const accessToken = String(data?.accessToken)
 
   const { CustomersContext, setCustomersContext } = useCustomersContext()
 
   async function handleGetCustomersAndPutInCustomersContext() {
     if (!accessToken) return
-
     const PageOne = 1
     const PageFromQueryParams = Number(page)
     const currentPageOfCustomers = PageFromQueryParams || PageOne
     const customersFromApi = await GetMany(currentPageOfCustomers, accessToken)
-
+    if (!customersFromApi) return
     setCustomersContext!({ ...customersFromApi, loading: false })
   }
 
   useEffect(() => {
     handleGetCustomersAndPutInCustomersContext()
   }, [page])
+
+  if (!accessToken) return (
+      <div />
+  )
 
   return (
     <S.Container>

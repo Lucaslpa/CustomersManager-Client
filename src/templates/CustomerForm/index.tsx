@@ -6,7 +6,7 @@ import { CustomerForm as Component } from '../../components/CustomerForm'
 import * as S from './style'
 import { Button } from '../../components/Button'
 import { LogOut } from '../../components/LogOut'
-import { CustomerToUpdate } from '../../types/Customer'
+import { CustomerToCreate } from '../../types/Customer'
 import { useRedirectToLoginIfHasNoSession } from '../../Hooks/redirectToLogin'
 import { GetOne } from '../../services/customer/getOne'
 
@@ -16,7 +16,7 @@ export const CustomerForm = () => {
 
   const data = useRedirectToLoginIfHasNoSession()
   const accessToken = String(data?.accessToken)
-  const [Customer, setCustomer] = useState<CustomerToUpdate | undefined>()
+  const [Customer, setCustomer] = useState<CustomerToCreate | undefined>()
 
   async function handleGetCustomer() {
     if (!data || !data.accessToken || !id) return
@@ -28,6 +28,8 @@ export const CustomerForm = () => {
   useEffect(() => {
     handleGetCustomer()
   }, [data, id])
+
+  if (!accessToken) return <div />
 
   return (
     <S.Container>
