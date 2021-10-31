@@ -1,14 +1,11 @@
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
+
 import { Edit } from '@styled-icons/entypo'
 import { TrashFill } from '@styled-icons/bootstrap'
 import * as S from './style'
 import { Button } from '../Button'
 import { Customer } from '../../types/Customer'
-import { useSelectContext } from '../../contexts/CustomersSelect'
-import { useCustomersContext } from '../../contexts/Customers'
-import { DeleteOne } from '../../services/customer/deleteOne'
+
 import { useDeleteCustomer } from './hooks/deleteThisCustomer'
 import { useCheckCustomer } from './hooks/checkCustomer'
 
@@ -25,7 +22,7 @@ export const CustomerWeb = ({ customer }: props) => {
       <td style={{ textAlign: 'center' }}>
         <input
           type="checkbox"
-          onChange={(e) => {
+          onChange={() => {
             handleCheckCustomer()
           }}
           checked={isChecked}

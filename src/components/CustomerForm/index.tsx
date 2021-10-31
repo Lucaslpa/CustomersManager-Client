@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import * as S from './styles'
