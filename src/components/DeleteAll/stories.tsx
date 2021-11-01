@@ -6,7 +6,7 @@ export default {
   component: DeleteAll,
 } as Meta
 
-const Template: Story<props> = (args) => <DeleteAll {...args} />
+const Template: Story<props> = () => <DeleteAll />
 
 export const Default = Template.bind({})
-Default.args = { hidden: false, selected: 2 }
+Default.args = { hidden: false }

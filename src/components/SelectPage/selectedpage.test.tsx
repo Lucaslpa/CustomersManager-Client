@@ -19,5 +19,7 @@ jest.mock('next/router', () => ({
 }))
 
 describe('SelectPage', () => {
-  it('', () => {})
+  it('', () => {
+    console.log()
+  })
 })
