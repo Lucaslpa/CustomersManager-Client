@@ -36,7 +36,7 @@ export const LoginForm = ({ csrfToken }: props) => {
       redirect: false,
     })
 
-    if (loginResult && 'error' in loginResult && loginResult?.error) {
+    if ('error' in loginResult) {
       setLoading(false)
       toast.error(loginResult.error, { theme: 'colored' })
     } else {
