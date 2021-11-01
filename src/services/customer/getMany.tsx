@@ -22,24 +22,32 @@ export const GetMany = async (
   page: number,
   token: string
 ): Promise<ApiTypes.CustomerGetMany | null> => {
-  const response = await Api.get<httpResponse>(`/clients?page=${page}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
+  console.log(page, token)
+  try {
+    const response = await Api.get<httpResponse>(`/clients?page=${page}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
 
-  if (response.data.status !== 200) return null
-  const customersFromApi = response.data.data.clients.docs
+    console.log(response)
 
-  const customers = customersFromApi.map((customer: customerFromApi) => {
-    delete customer.__v
-    customer.id = customer._id
-    delete customer._id
-    delete customer.created_at
-    delete customer.updatedAt
+    if (response.data.status !== 200) return null
+    const customersFromApi = response.data.data.clients.docs
 
-    return customer
-  })
+    const customers = customersFromApi.map((customer: customerFromApi) => {
+      delete customer.__v
+      customer.id = customer._id
+      delete customer._id
+      delete customer.created_at
+      delete customer.updatedAt
 
-  return { ...response.data.data.clients, customers }
+      return customer
+    })
+
+    return { ...response.data.data.clients, customers }
+  } catch (error) {
+    console.log(error)
+    return null
+  }
 }
