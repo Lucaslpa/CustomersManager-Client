@@ -22,6 +22,7 @@ export const CustomerForm = () => {
     if (!data || !data.accessToken || !id) return
 
     const customerFromApi = await GetOne(String(id), accessToken)
+
     setCustomer(customerFromApi)
   }
 

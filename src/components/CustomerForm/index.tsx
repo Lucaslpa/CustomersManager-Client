@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
+import { useState, useEffect } from 'react'
+import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import * as S from './styles'
 import { TextField } from '../TextField'
@@ -82,17 +82,16 @@ export const CustomerForm = ({
     }
   }
 
-  async function handleValidateFields() {
-    const formIsValid = await Validate.ValidateAll(FormData)
-    setFieldsValidate(formIsValid.fieldsValidate)
-    return formIsValid.FormIsValid
+  async function handleValidateForm() {
+    const validateForm = await Validate.ValidateAll(FormData)
+    setFieldsValidate(validateForm.fieldsValidate)
+    return validateForm.FormIsValid
   }
 
   async function handleSendForm() {
     if (!data || !data.accessToken || !FormData) return
 
-    const formIsValid = await handleValidateFields()
-
+    const formIsValid = await handleValidateForm()
     if (!formIsValid) {
       toast.error('Dados inválidos.', { theme: 'colored' })
       return
@@ -104,6 +103,8 @@ export const CustomerForm = ({
       handleCreateCustomer()
     }
   }
+
+  useEffect(() => setFormData(customer), [customer])
 
   return (
     <>
