@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { ListCustomers as Component } from '../templates/ListCustomers
+import { ListCustomers as Component } from '../templates/ListCustomers'
 
 export default function List() {
   return (
