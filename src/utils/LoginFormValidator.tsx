@@ -5,12 +5,10 @@ export const validateAll = yup.object().shape({
   birthday: yup.string().required(),
   cpf: yup.string().length(11).required(),
   email: yup.string().email().required(),
-  name: yup.string().required(),
+  name: yup.string().min(5).required(),
   phone: yup.string().min(10).max(12).required(),
-  surname: yup.string().required(),
+  surname: yup.string().min(5).required(),
 })
-
-export const username = yup.string().required()
 
 export const address = yup.string().required()
 
