@@ -11,7 +11,7 @@ export const LogOut = () => (
           text="Sair"
           type="button"
           onClick={() =>
-            signOut({ callbackUrl: `http://localhost:3000/login` })
+            signOut({ callbackUrl: `${process.env.NEXTAUTH_URL}/login` })
           }
         />
       </>
