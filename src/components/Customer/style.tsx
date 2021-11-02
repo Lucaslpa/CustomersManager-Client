@@ -10,7 +10,10 @@ export const WrapperWeb = styled.tr`
     align-items: center;
     width: 100%;
     padding: ${theme.spaces.medium};
-    border: solid 0.5px #d1d1d167;
+    border-bottom: solid 0.5px #d1d1d167;
+    border-right: solid 0.5px #d1d1d167;
+    border-left: solid 0.5px #d1d1d167;
+
     td {
       width: 100%;
     }
