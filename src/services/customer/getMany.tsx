@@ -22,15 +22,12 @@ export const GetMany = async (
   page: number,
   token: string
 ): Promise<ApiTypes.CustomerGetMany | null> => {
-  console.log(page, token)
   try {
     const response = await Api.get<httpResponse>(`/clients?page=${page}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-
-    console.log(response)
 
     if (response.data.status !== 200) return null
     const customersFromApi = response.data.data.clients.docs
@@ -47,7 +44,6 @@ export const GetMany = async (
 
     return { ...response.data.data.clients, customers }
   } catch (error) {
-    console.log(error)
     return null
   }
 }

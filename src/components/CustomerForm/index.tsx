@@ -24,8 +24,8 @@ type fields =
   | 'phone'
   | 'surname'
 
-export const CustomerForm = ({
-  customer = {
+export const CustomerForm = ({ customer }: props) => {
+  const [FormData, setFormData] = useState<CustomerToCreate>({
     address: '',
     birthday: '',
     cpf: '',
@@ -33,9 +33,7 @@ export const CustomerForm = ({
     name: '',
     phone: '',
     surname: '',
-  },
-}: props) => {
-  const [FormData, setFormData] = useState<CustomerToCreate>(customer)
+  })
 
   const [FieldsValidate, setFieldsValidate] = useState({
     address: true,
@@ -84,6 +82,8 @@ export const CustomerForm = ({
 
   async function handleValidateForm() {
     const validateForm = await Validate.ValidateAll(FormData)
+
+    console.log(FormData, validateForm)
     setFieldsValidate(validateForm.fieldsValidate)
     return validateForm.FormIsValid
   }
@@ -97,14 +97,18 @@ export const CustomerForm = ({
       return
     }
 
-    if (customer.cpf) {
+    if (typeof customer !== 'undefined') {
       handleUpdateCustomer()
     } else {
       handleCreateCustomer()
     }
   }
 
-  useEffect(() => setFormData(customer), [customer])
+  useEffect(() => {
+    if (typeof customer !== 'undefined') {
+      setFormData(customer)
+    }
+  }, [customer])
 
   return (
     <>
@@ -187,7 +191,7 @@ export const CustomerForm = ({
 
         <S.buttonWrapper>
           <Button
-            text={customer.cpf ? 'Salvar' : 'Cadastrar'}
+            text={customer ? 'Salvar' : 'Cadastrar'}
             type="submit"
             size="big"
           />
