@@ -40,7 +40,7 @@ export const Thead = styled.thead`
       align-items: center;
       width: 100%;
       padding: ${theme.spaces.medium};
-      border-bottom: solid 0.5px #e6e6e63b;
+      border: solid 1px #d1d1d167;
       color: ${theme.colors.primary};
       td {
         width: 100%;

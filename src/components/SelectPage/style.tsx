@@ -6,6 +6,8 @@ export const Wrapper = styled.div`
   width: 100%;
   justify-content: space-around;
   align-items: center;
+  margin-top: 2rem;
+  border: solid 1px #d1d1d167;
   ${({ theme }) => css`
     padding: ${theme.spaces.big};
     font-size: ${theme.fonts.big};

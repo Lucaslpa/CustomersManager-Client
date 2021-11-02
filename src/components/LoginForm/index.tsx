@@ -40,7 +40,6 @@ export const LoginForm = ({ csrfToken }: props) => {
       setLoading(false)
       toast.error(loginResult.error, { theme: 'colored' })
     } else {
-      toast.success('Login bem sucedido', { theme: 'colored' })
       Router.push('/CustomersList/1')
     }
   }
@@ -64,7 +63,7 @@ export const LoginForm = ({ csrfToken }: props) => {
 
       <Button
         text={!Loading ? 'Entrar' : undefined}
-        Icon={Loading ? <S.LoadingIcon /> : undefined}
+        Icon={Loading ? <S.LoadingIcon  /> : undefined}
         size="big"
         type="submit"
       />

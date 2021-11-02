@@ -10,8 +10,7 @@ export const WrapperWeb = styled.tr`
     align-items: center;
     width: 100%;
     padding: ${theme.spaces.medium};
-    border-bottom: solid 0.5px #e6e6e63b;
-
+    border: solid 0.5px #d1d1d167;
     td {
       width: 100%;
     }
@@ -32,7 +31,7 @@ export const WrapperMobile = styled.div<wrapperMobileProps>`
   align-items: center;
   justify-content: space-around;
   height: 13rem;
-  border: solid 0.5px #e6e6e63b;
+  border: solid 1px #d1d1d167;
   ${({ selected, theme }) => css`
     background-color: ${selected ? theme.colors.selected : null};
   `};

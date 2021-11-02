@@ -29,5 +29,5 @@ const spin = keyframes`
 
 export const LoadingIcon = styled(Spinner9)`
   animation: 2s linear ${spin} infinite;
-  width: 1.7rem;
+  width: 1.4rem;
 `
