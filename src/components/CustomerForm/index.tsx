@@ -83,7 +83,6 @@ export const CustomerForm = ({ customer }: props) => {
   async function handleValidateForm() {
     const validateForm = await Validate.ValidateAll(FormData)
 
-    console.log(FormData, validateForm)
     setFieldsValidate(validateForm.fieldsValidate)
     return validateForm.FormIsValid
   }
