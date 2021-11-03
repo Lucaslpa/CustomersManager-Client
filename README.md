@@ -10,7 +10,7 @@
 </div>
 
 ## Como utilizar:
-A aplicação está em produção no netlify no seguinte link: [clique aqui](angry-pasteur-1377c4.netlify.app/login). 
+A aplicação está em produção no netlify no seguinte link: [clique aqui](http://angry-pasteur-1377c4.netlify.app/login). 
 
 A conta de administrador registrada no sistema atualmente é a seguinte: Administrador: adm, Senha: 123.
 
