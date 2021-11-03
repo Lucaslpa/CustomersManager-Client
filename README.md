@@ -1,6 +1,10 @@
 <h1 align="center" >  CustomersManager</h1>
 É uma aplicação criada para gerenciamento de clientes. Nele é possível cadastrar novos clientes, olhar dados, editar dados e deletar  clientes. 
 
+
+<br/>
+<br/>
+
 <div align="center" > 
 <img src='https://i.ibb.co/pngn33k/sim.png' width=500 />
 </div>
