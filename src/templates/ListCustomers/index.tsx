@@ -15,7 +15,7 @@ import { GetMany } from '../../services/customer/getMany'
 export const ListCustomers = () => {
   const router = useRouter()
   const { page } = router.query
-  const { status, data } = useSession()
+  const { data } = useSession()
 
   const accessToken = String(data?.accessToken)
 
@@ -46,11 +46,13 @@ export const ListCustomers = () => {
           </Link>
         </S.AddCustomer>
         {!CustomersContext.loading ? (
-          <List customers={CustomersContext.customers} />
+          <>
+            <List customers={CustomersContext.customers} />
+            <SelectPage />
+          </>
         ) : (
           <Loading />
         )}
-        <SelectPage />
       </S.Wrapper>
     </S.Container>
   )

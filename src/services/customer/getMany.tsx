@@ -43,8 +43,6 @@ export const GetMany = async (
       return customer
     })
 
-    console.log('customers', customers)
-
     return { ...response.data.clients, customers }
   } catch (error) {
     return null

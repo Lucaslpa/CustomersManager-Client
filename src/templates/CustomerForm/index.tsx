@@ -30,8 +30,10 @@ export const CustomerForm = () => {
   }
 
   useEffect(() => {
-    handleGetCustomer()
-  }, [data, id])
+    if (id) {
+      handleGetCustomer()
+    }
+  }, [])
 
   return (
     <S.Container>

@@ -8,8 +8,6 @@ import { Button } from '../Button'
 import { CustomerToCreate } from '../../types/Customer'
 import { CreateOne } from '../../services/customer/createOne'
 import { UpdateOne } from '../../services/customer/updateOne'
-import { useRedirectToLoginIfHasNoSession } from '../../Hooks/redirectToLogin'
-
 import { LoginFormValidate as Validate } from '../../utils/LoginFormValidator'
 
 type props = {

@@ -1,9 +1,9 @@
-import { useRedirectToLoginIfHasNoSession } from '../../../Hooks/redirectToLogin'
+import { useSession } from 'next-auth/react'
 import { DeleteOne } from '../../../services/customer/deleteOne'
 import { useCustomersContext } from '../../../contexts/Customers'
 
 export const useDeleteCustomer = () => {
-  const data = useRedirectToLoginIfHasNoSession()
+  const { data } = useSession()
   const accessToken = String(data?.accessToken)
   const { CustomersContext, setCustomersContext } = useCustomersContext()
 

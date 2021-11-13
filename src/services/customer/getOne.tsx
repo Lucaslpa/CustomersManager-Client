@@ -18,7 +18,6 @@ export const GetOne = async (
   if ('error' in response.data) {
     return response.data.error
   }
-  console.log(response)
 
   let CustomerFromApi = response.data.client
   delete CustomerFromApi.__v
