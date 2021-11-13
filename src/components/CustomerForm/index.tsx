@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 import * as S from './styles'
 import { TextField } from '../TextField'
 import { Button } from '../Button'
@@ -47,7 +48,7 @@ export const CustomerForm = ({ customer }: props) => {
 
   const router = useRouter()
   const { id } = router.query
-  const data = useRedirectToLoginIfHasNoSession()
+  const { data } = useSession()
   const accessToken = String(data?.accessToken)
 
   const validateField = async (field: fields, value: string) => {

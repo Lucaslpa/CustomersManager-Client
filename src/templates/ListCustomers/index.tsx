@@ -2,26 +2,26 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { PersonAdd } from '@styled-icons/evaicons-solid'
+import { useSession } from 'next-auth/react'
 import { List } from '../../components/List'
 import { Button } from '../../components/Button'
 import * as S from './style'
 import { LogOut } from '../../components/LogOut'
 import { SelectPage } from '../../components/SelectPage'
 import { useCustomersContext } from '../../contexts/Customers'
-import { useRedirectToLoginIfHasNoSession } from '../../Hooks/redirectToLogin'
 import { Loading } from '../../components/Loading'
 import { GetMany } from '../../services/customer/getMany'
 
 export const ListCustomers = () => {
   const router = useRouter()
   const { page } = router.query
-  const data = useRedirectToLoginIfHasNoSession()
+  const { status, data } = useSession()
+
   const accessToken = String(data?.accessToken)
 
   const { CustomersContext, setCustomersContext } = useCustomersContext()
 
   async function handleGetCustomersAndPutInCustomersContext() {
-    if (!accessToken) return
     const PageOne = 1
     const PageFromQueryParams = Number(page)
     const currentPageOfCustomers = PageFromQueryParams || PageOne
@@ -33,10 +33,6 @@ export const ListCustomers = () => {
   useEffect(() => {
     handleGetCustomersAndPutInCustomersContext()
   }, [page])
-
-  if (!accessToken) return (
-      <div />
-  )
 
   return (
     <S.Container>
@@ -58,4 +54,6 @@ export const ListCustomers = () => {
       </S.Wrapper>
     </S.Container>
   )
+
+  return null
 }
