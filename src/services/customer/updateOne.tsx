@@ -1,5 +1,4 @@
 import { Api } from '../../api'
-import { httpResponse } from '../../types/httpResponse'
 import * as ApiTypes from '../../types/Customer'
 
 type Return = {
@@ -12,13 +11,13 @@ export const UpdateOne = async (
   data: ApiTypes.CustomerToUpdate,
   token: string
 ): Promise<Return> => {
-  const response = await Api.put<httpResponse>(`/clients/${id}`, data, {
+  const response = await Api.put(`/client/${id}`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   })
 
-  if (response.data.status !== 200) {
+  if (response.status !== 200) {
     return {
       updated: false,
       message: 'Falha ao tentar atualizar cliente',

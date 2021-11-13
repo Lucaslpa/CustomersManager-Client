@@ -1,11 +1,10 @@
 import { Api } from '../../api'
-import { httpResponse } from '../../types/httpResponse'
 
 export const DeleteMany = async (
   ids: string[],
   token: string
 ): Promise<boolean> => {
-  const response = await Api.delete<httpResponse>(`/clients`, {
+  const response = await Api.delete(`/clients`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -14,6 +13,6 @@ export const DeleteMany = async (
     },
   })
 
-  if (response.data.status !== 200) return false
+  if (response.status !== 200) return false
   return true
 }

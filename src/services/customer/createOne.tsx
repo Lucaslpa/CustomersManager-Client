@@ -1,5 +1,4 @@
 import { Api } from '../../api'
-import { httpResponse } from '../../types/httpResponse'
 import * as ApiTypes from '../../types/Customer'
 
 type Return = {
@@ -11,18 +10,18 @@ export const CreateOne = async (
   client: ApiTypes.CustomerToCreate,
   token: string
 ): Promise<Return> => {
-  let response = await Api.post<httpResponse>(`/clients`, client, {
+  let response = await Api.post(`/clients`, client, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   })
 
-  if (response.data.status === 409)
+  if (response.status === 409)
     return {
       created: false,
       message: 'Cliente já criado',
     }
-  if (response.data.status !== 200)
+  if (response.status !== 200)
     return {
       created: false,
       message: 'Falha ao criar cliente',

@@ -1,5 +1,4 @@
 import { Api } from '../../api'
-import { httpResponse } from '../../types/httpResponse'
 
 type Return = {
   login: boolean
@@ -12,21 +11,25 @@ export const LoginAdministrator = async (login: {
   password: string
 }): Promise<Return> => {
   try {
-    const response = await Api.post<httpResponse>('/administrator/login', login)
-    if (response.data.status === 400)
+    const response = await Api.post<{ token: string }>(
+      '/administrator/login',
+      login
+    )
+    if (response.status === 400)
       return { login: false, message: 'Admininistrador inexistente' }
-    if (response.data.status !== 200 || !response.data.data.token)
+
+    if (response.status !== 200 || !response.data.token)
       return { login: false, message: 'Algo inesperado aconteceu' }
 
     return {
       login: true,
       message: 'Login bem sucedido',
-      token: response.data.data.token,
+      token: response.data.token,
     }
   } catch (err) {
     return {
       login: false,
-      message: 'Algo de errado aconteceu',
+      message: 'Algo de inesperado aconteceu',
     }
   }
 }

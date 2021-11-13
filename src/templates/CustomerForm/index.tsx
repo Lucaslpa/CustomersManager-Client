@@ -2,26 +2,29 @@ import { useRouter } from 'next/router'
 import { Back } from '@styled-icons/entypo'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
 import { CustomerForm as Component } from '../../components/CustomerForm'
 import * as S from './style'
 import { Button } from '../../components/Button'
 import { LogOut } from '../../components/LogOut'
 import { CustomerToCreate } from '../../types/Customer'
-import { useRedirectToLoginIfHasNoSession } from '../../Hooks/redirectToLogin'
 import { GetOne } from '../../services/customer/getOne'
 
 export const CustomerForm = () => {
   const router = useRouter()
   const { id } = router.query
+  const { data } = useSession()
 
-  const data = useRedirectToLoginIfHasNoSession()
   const accessToken = String(data?.accessToken)
   const [Customer, setCustomer] = useState<CustomerToCreate | undefined>()
 
   async function handleGetCustomer() {
-    if (!data || !data.accessToken || !id) return
-
     const customerFromApi = await GetOne(String(id), accessToken)
+
+    if (typeof customerFromApi === 'string') {
+      router.push('CustomersList/1')
+      return
+    }
 
     setCustomer(customerFromApi)
   }
@@ -29,8 +32,6 @@ export const CustomerForm = () => {
   useEffect(() => {
     handleGetCustomer()
   }, [data, id])
-
-  if (!accessToken) return <div />
 
   return (
     <S.Container>

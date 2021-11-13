@@ -4,6 +4,7 @@ import { httpResponse } from '../../types/httpResponse'
 import * as ApiTypes from '../../types/Customer'
 
 type customerFromApi = {
+  id?: string
   _id?: string
   address: string
   birthday: string
@@ -15,7 +16,6 @@ type customerFromApi = {
   created_at?: string
   updatedAt?: string
   __v?: number
-  id?: string
 }
 
 export const GetMany = async (
@@ -23,14 +23,15 @@ export const GetMany = async (
   token: string
 ): Promise<ApiTypes.CustomerGetMany | null> => {
   try {
-    const response = await Api.get<httpResponse>(`/clients?page=${page}`, {
+    const response = await Api.get<{ clients: any }>(`/clients/${page}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
 
-    if (response.data.status !== 200) return null
-    const customersFromApi = response.data.data.clients.docs
+    if (response.status !== 200) return null
+    const customersFromApi = response.data.clients.docs
+    delete response.data.clients.docs
 
     const customers = customersFromApi.map((customer: customerFromApi) => {
       delete customer.__v
@@ -42,7 +43,9 @@ export const GetMany = async (
       return customer
     })
 
-    return { ...response.data.data.clients, customers }
+    console.log('customers', customers)
+
+    return { ...response.data.clients, customers }
   } catch (error) {
     return null
   }
